@@ -49,18 +49,18 @@ const Homeagent=(()=>{
                                     
                             </div>
                             <div className='my-sub-links'>
-                                <div className='my-sub-links-img'>
-                                <CalendarMonthOutlinedIcon style={{ fontSize: '60px',color: '#955108' }} /> 
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3.5rem' , width:'3.5rem' ,background:'#FFD2B1' ,borderRadius:'50px'}}>
+                                  <CalendarMonthOutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
                                 <div className='my-sub-links-content'>
-                                     <h1>My clients</h1>
+                                     <h1>My Appointments</h1>
                                      <p>{myappointmentcount}</p>
                                 </div>
                                     
                             </div>
                             <div className='my-sub-links'>
-                                <div className='my-sub-links-img'>
-                                <LandscapeOutlinedIcon style={{ fontSize: '60px',color: '#955108' }} /> 
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3.5rem' , width:'3.5rem' ,background:'#FFD2B1' ,borderRadius:'50px'}}>
+                                  <LandscapeOutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
                                 <div className='my-sub-links-content'>
                                      <h1>My Landlords</h1>
@@ -69,8 +69,8 @@ const Homeagent=(()=>{
                                     
                             </div>
                             <div className='my-sub-links'>
-                                <div className='my-sub-links-img'>
-                                <PeopleOutlinedIcon style={{ fontSize: '60px' ,color: '#955108'}} /> 
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3.5rem' , width:'3.5rem' ,background:'#FFD2B1' ,borderRadius:'50px'}}>
+                                  <PeopleOutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
                                 <div className='my-sub-links-content'>
                                      <h1>My Tenants</h1>
@@ -79,8 +79,8 @@ const Homeagent=(()=>{
                                     
                             </div>
                             <div className='my-sub-links'>
-                                <div className='my-sub-links-img'>
-                                <Diversity1OutlinedIcon style={{ fontSize: '60px',color: '#955108' }} /> 
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3.5rem' , width:'3.5rem' ,background:'#FFD2B1' ,borderRadius:'50px'}}>
+                                  <Diversity1OutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
                                 <div className='my-sub-links-content'>
                                      <h1>My Potential clients</h1>
@@ -97,8 +97,8 @@ const Homeagent=(()=>{
                     </div>
                     <div className='my-links'>
                             <div className='my-sub-links'>
-                                <div className='my-sub-links-img'>
-                                <OfflinePinOutlinedIcon style={{ fontSize: '60px' ,color: '#955108'}} /> 
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3.5rem' , width:'3.5rem' ,background:'#FFD2B1' ,borderRadius:'50px'}}>
+                                  <OfflinePinOutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
                                 <div className='my-sub-links-content'>
                                      <h1>Generate Billing</h1>
@@ -107,9 +107,10 @@ const Homeagent=(()=>{
                                     
                             </div>
                             <div className='my-sub-links'>
-                                <div className='my-sub-links-img'>
-                                <ChecklistRtlOutlinedIcon style={{ fontSize: '60px',color: '#955108' }} /> 
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3.5rem' , width:'3.5rem' ,background:'#FFD2B1' ,borderRadius:'50px'}}>
+                                  <ChecklistRtlOutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
+                                
                                 <div className='my-sub-links-content'>
                                      <h1>My Listing Request</h1>
                                      <p>{Listingrequestclient}</p>
@@ -117,8 +118,8 @@ const Homeagent=(()=>{
                                     
                             </div>
                             <div className='my-sub-links'>
-                                <div className='my-sub-links-img'>
-                                <ClassOutlinedIcon style={{ fontSize: '60px',color: '#955108' }} /> 
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3.5rem' , width:'3.5rem' ,background:'#FFD2B1' ,borderRadius:'50px'}}>
+                                  <ClassOutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
                                 <div className='my-sub-links-content'>
                                      <h1>My Agreements</h1>
