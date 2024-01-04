@@ -1,4 +1,5 @@
 import './Home.css'
+import { useNavigate } from 'react-router-dom';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
@@ -12,6 +13,8 @@ import messagedata from './messagedata';
 import profile from '../Images/profile.png'
 
 const Homeagent=(()=>{
+
+  const navigate = useNavigate()
     const myclientscount = 2
     const myzonecount = 10
     const myappointmentcount = 3
@@ -91,7 +94,7 @@ const Homeagent=(()=>{
                     </div>
                     <div className='my-own'>
                             <p>My Rental Request</p>
-                            <p>List a Properties</p>
+                            <p onClick={()=>{navigate('/listaproperty')}}>List a Properties</p>
                             <p>My Listed Properties</p>
                             <p>My Valuation Request</p>
                     </div>
