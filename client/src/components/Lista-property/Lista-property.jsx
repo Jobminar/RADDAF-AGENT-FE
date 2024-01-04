@@ -14,7 +14,7 @@ import Select from '@mui/material/Select';
 // import { Button } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-// rooms
+// rooms have added
 import SingleBedIcon from '@mui/icons-material/SingleBed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled';
