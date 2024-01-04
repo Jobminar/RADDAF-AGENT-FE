@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import upload from '../Images/upload-image.jpeg'
+// import upload from '../Images/upload-image.jpeg'
 import backarrow from '../Images/backarrow.png'
 import { useState } from 'react'
 import './Lista-property.css'
@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 // import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Button } from '@mui/material';
+// import { Button } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 // rooms
