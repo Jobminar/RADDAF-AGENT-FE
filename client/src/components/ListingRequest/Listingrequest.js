@@ -293,6 +293,8 @@ const Listingrequest = () => {
             <Select
               value={selectedOption}
               onChange={handleOptionChange}
+              placeholder='To-Let'
+              // renderValue="To-Let"
               inputProps={{ 'aria-label': 'Without label' }}
               sx={{
                 backgroundColor: '#9E5C08',
@@ -311,7 +313,7 @@ const Listingrequest = () => {
             >
               {/* <MenuItem value="">Select Option</MenuItem> */}
               <MenuItem value="Forsale">For Sale</MenuItem>
-              <MenuItem value="To-let">To Let</MenuItem>
+              <MenuItem value="To-let" placeholder="Tolet">To Let</MenuItem>
             </Select>
           </FormControl>
         </div>
