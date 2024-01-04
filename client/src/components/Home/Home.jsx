@@ -114,7 +114,7 @@ const Homeagent=(()=>{
                                   <ChecklistRtlOutlinedIcon style={{ fontSize: '40px', color: '#955108' }} />
                                 </div>
                                 
-                                <div className='my-sub-links-content'>
+                                <div className='my-sub-links-content' onClick={(()=>{navigate('/listingrequest')})}>
                                      <h1>My Listing Request</h1>
                                      <p>{Listingrequestclient}</p>
                                 </div>
