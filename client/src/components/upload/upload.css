@@ -1,0 +1,45 @@
+.maincont{
+    margin: 40px;
+}
+
+.upimg{
+    background-color: #D9D9D9;
+    height: 250px;
+    width: 20%;
+    margin-top: 20px;
+    padding: 50px;
+}
+.upmg{
+    margin: 50px;
+}
+.cont2{
+    display: flex;
+}
+.cont3{
+    width: 80%;
+    height: auto;
+    margin-left: 30px;
+    
+}
+
+.contche{
+    display: flex;
+    /* justify-content: center; */
+    /* padding-left: 5px; */
+    align-items: center;
+}
+
+.doc{
+    padding-left: 10px;
+}
+.cont4{
+    /* display: grid; */
+    display: grid;
+    justify-content: flex-end;
+    grid-template-columns: repeat(2, 1fr);
+    /* gap: 20px; */
+    /* justify-content: center; */
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+}
