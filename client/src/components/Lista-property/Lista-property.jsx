@@ -3,7 +3,9 @@ import React, { useEffect } from 'react'
 import backarrow from '../Images/backarrow.png'
 import { useState } from 'react'
 import './Lista-property.css'
+import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 
 // mui
 // import InputLabel from '@mui/material/InputLabel';
@@ -22,6 +24,8 @@ import toiletlogo from '../Images/toilet-logo.png'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import uploadimage from '../Images/uploadimagesmall.png'
+import Imageupload from '../Imageupload/Imageupload'
 
 
 const Listaproperty = () => {
@@ -56,6 +60,15 @@ const Listaproperty = () => {
             mobileNumber: '',
             subject: ''
         },
+        propertyTitleDeals: null,
+        fittingsContentForm: null,
+        EPC:null,
+        Leasehold: null,
+        TA6: null,
+        LocalAuthoritySearch: null,
+        PropertyValuationReport: null,
+        FloorPlan: null,
+
         // Add more fields as needed
     });
    
@@ -81,8 +94,6 @@ const Listaproperty = () => {
         }));
     };
     
-
-
     const handleDateChange = (newValue) => {
         setFormValues((prevState) => ({
             ...prevState,
@@ -102,11 +113,10 @@ const Listaproperty = () => {
         }));
     };
 
-
-    useEffect(() => {
-        console.log('Form values:', formValues);
-        // Perform actions based on formValues changes
-    }, [formValues]);
+    // useEffect(() => {
+    //     console.log('Form values:', formValues);
+    //     // Perform actions based on formValues changes
+    // }, [formValues]);
    
     const handleSubmit = () => {
         if (
@@ -133,7 +143,47 @@ const Listaproperty = () => {
            
         }
     };
+   
+    const fileInputTitleDealsRef = useRef(null);
+    const fileInputFittingsContentRef = useRef(null);
+    const fileInputEPCRef = useRef(null);
+    const fileInputLeaseholdRef = useRef(null);
+    const fileInputTA6dRef= useRef(null)
+    const fileInputLocalAuthoritySearchdRef= useRef(null)
+    const fileInputPropertyValuationReportRef = useRef(null)
+    const fileInputFloorPlanRef = useRef(null)
+
+    const [fileUploads, setFileUploads] = useState({
+        propertyTitleDealsUploaded: false,
+        fittingsContentFormUploaded: false,
+        EPCUploaded: false,
+        LeaseholdUploaded: false,
+        TA6Uploaded: false,
+        LocalAuthoritySearchUploaded: false,
+        PropertyValuationReportUploaded: false,
+        FloorPlanUploaded: false,
+       
+      });
   
+    const handleFileChange = (event, className) => {
+      const uploadedFile = event.target.files[0];
+
+      const updatedFileUploads = {
+        ...fileUploads,
+        [`${className}Uploaded`]: uploadedFile !== undefined,
+      };
+  
+      setFileUploads(updatedFileUploads);
+
+      const updatedFormValues = {
+        ...formValues,
+        [className]: uploadedFile, 
+      };
+  
+      setFormValues(updatedFormValues);
+    };
+  
+ 
   return (
     <div className='Lista-property-con'>
         {/* list head */}
@@ -184,7 +234,7 @@ const Listaproperty = () => {
                          <div className='custom-radio'>
                             <input type="radio" id="Residential" name="propertytype" value="Residential"
                              onChange={handleInputFilter}
-                             checked={formValues.propertytype === 'esidential'} /> 
+                             checked={formValues.propertytype === 'Residential'} /> 
                             <label for="Residential">Residential</label>
                          </div>
                         
@@ -247,6 +297,190 @@ const Listaproperty = () => {
              
              </div>            
         </div>
+
+
+        {/* Image & document */}
+            <div className='image-document'>
+                <div className='image-upload'>
+                    <div className='image-upload-sub'>
+                        <Imageupload/>
+                    </div>
+                </div>
+                 {/* Hidden file input element */}
+                 <div className='documents-main'>
+                        {/* 1 */}
+                        <div className='documents-sub-1'>
+                            <input
+                                type='file'
+                                ref={fileInputTitleDealsRef}
+                                onChange={(e) => handleFileChange(e, 'propertyTitleDeals')}
+                                style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputTitleDealsRef.current.click()}
+                            >
+                            <input
+                                type='checkbox'
+                                checked={fileUploads.propertyTitleDealsUploaded}
+                                readOnly
+                            />
+                            <div className='property-title-deals'>property-title-deals</div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                        </div>
+                        {/* 2 */}
+                        <div className='documents-sub-1'>
+                            <input
+                            type='file'
+                            ref={fileInputFittingsContentRef}
+                            onChange={(e) => handleFileChange(e, 'fittingsContentForm')}
+                            style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputFittingsContentRef.current.click()}
+                            >
+                            <input
+                                type='checkbox'
+                                checked={fileUploads.fittingsContentFormUploaded}
+                                readOnly
+                            />
+                            <div className='Fittings-content-form'>Fittings-content-form</div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                        </div>
+                        {/* 3 */}
+                        <div className='documents-sub-1'>
+                            <input
+                            type='file'
+                            ref={fileInputEPCRef}
+                            onChange={(e) => handleFileChange(e, 'EPC')}
+                            style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputEPCRef.current.click()}
+                            >
+                            <input
+                                type='checkbox'
+                                checked={fileUploads.EPCUploaded}
+                                readOnly
+                            />
+                            <div className='EPC'>Energy Performance Certificate (EPC)</div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                            
+                        </div>
+                        {/* 4 */}
+                        <div className='documents-sub-1'>
+                            <input
+                            type='file'
+                            ref={fileInputLeaseholdRef}
+                            onChange={(e) => handleFileChange(e, 'Leasehold')}
+                            style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputLeaseholdRef.current.click()}
+                            >
+                             <input
+                                type='checkbox'
+                                checked={fileUploads.LeaseholdUploaded}
+                                readOnly
+                            />
+                            <div className='Leasehold'>Leasehold Information</div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                        </div>
+                        {/* 5 */}
+                        <div className='documents-sub-1'>
+                            <input
+                            type='file'
+                            ref={fileInputTA6dRef}
+                            onChange={(e) => handleFileChange(e, 'TA6')}
+                            style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputTA6dRef.current.click()}
+                            >
+                            <input
+                                type='checkbox'
+                                checked={fileUploads.TA6Uploaded}
+                                readOnly
+                            />
+                            <div className='TA6'>Property Info Form ( TA6 )</div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                        </div>
+                        {/* 6 */}
+                        <div className='documents-sub-1'>
+                            <input
+                            type='file'
+                            ref={fileInputLocalAuthoritySearchdRef}
+                            onChange={(e) => handleFileChange(e, 'LocalAuthoritySearch')}
+                            style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputLocalAuthoritySearchdRef.current.click()}
+                            >
+                            <input
+                                type='checkbox'
+                                checked={fileUploads.LocalAuthoritySearchUploaded}
+                                readOnly
+                            />
+                            <div className='LocalAuthoritySearch'>Local Authority Search </div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                        </div>
+                        {/* 7 */}
+                        <div className='documents-sub-1'>
+                            <input
+                            type='file'
+                            ref={fileInputPropertyValuationReportRef}
+                            onChange={(e) => handleFileChange(e, 'PropertyValuationReport')}
+                            style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputPropertyValuationReportRef.current.click()}
+                            >
+                            <input
+                                type='checkbox'
+                                checked={fileUploads.PropertyValuationReportUploaded}
+                                readOnly
+                            />
+                            <div className='PropertyValuationReport'>Property Valuation Report </div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                        </div>
+                        {/* 8 */}
+                        <div className='documents-sub-1'>
+                            <input
+                            type='file'
+                            ref={fileInputFloorPlanRef}
+                            onChange={(e) => handleFileChange(e, 'FloorPlan')}
+                            style={{ display: 'none' }}
+                            />
+                            <div
+                            className='documents-sub'
+                            onClick={() => fileInputFloorPlanRef.current.click()}
+                            >
+                           <input
+                                type='checkbox'
+                                checked={fileUploads.FloorPlanUploaded}
+                                readOnly
+                            />
+                            <div className='FloorPlan'>Floor Plan </div>
+                            <img src={uploadimage} alt='uploadimage'/>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+
         {/* list tail */}
         <div className='list-tail'>
             <div className='property-description'>

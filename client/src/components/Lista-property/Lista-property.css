@@ -459,3 +459,44 @@ dimensions-lw p{
 .buttons button:hover{
     cursor: pointer;
 }
+
+/* Image document */
+.image-document{
+    border: 1px solid black;
+    padding: 1rem 0rem;
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+.image-upload{
+    border: 1px solid black;
+}
+.image-upload-sub{
+    width: 14rem;
+    height: 18rem;
+    background-color: #867878;
+}
+.documents-main{
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    justify-content: center;
+    align-items: center;
+
+}
+.documents-sub div{
+    font-family: Roboto;
+font-size: 18px;
+font-weight: 400;
+line-height: 21px;
+letter-spacing: 0em;
+text-align: left;
+color: #9E5C08;
+
+}
+.documents-sub{
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5rem;
+    justify-content: left;
+    align-items: center;
+}
