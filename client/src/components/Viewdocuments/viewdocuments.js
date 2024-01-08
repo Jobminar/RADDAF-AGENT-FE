@@ -8,11 +8,80 @@ import toletlistinreq from '../ListingRequest/tolet.js';
 import SingleBedIcon from '@mui/icons-material/SingleBed';
 import toiletlogo from '../Images/toilet-logo.png'
 import BathtubIcon from '@mui/icons-material/Bathtub';
+import { useNavigate } from 'react-router-dom';
+import backarrow from '../Images/backarrow.png'
 import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled';
+import data from "./docdata.js"
+import HotelOutlinedIcon from '@mui/icons-material/HotelOutlined';
 
 
 const Listingrequest = () => {
+  const navigate = useNavigate()
   const [selectedOption, setSelectedOption] = useState("");
+  const userData = data[0]; 
+
+  const renderKeyValue = (key, value) => (
+    <div key={key} style={{ display: 'flex', flexDirection: "row", justifyContent: "space-between" }}>
+      <div>{key}</div>
+      <div>:</div>
+      <div>{value}</div>
+    </div>
+  );
+
+  const downloadPropertyTitleDeals = () => {
+    const content = userData.Propertytitledeals;
+    const fileName = 'Propertytitledeals.txt';
+    download(content, fileName);
+  };
+
+  const downloadFittingAndContentsForm = () => {
+    const content = userData.Fittingandcontentsform;
+    const fileName = 'Fittingandcontentsform.txt';
+    download(content, fileName);
+  };
+
+  const downloadFloorplan = () => {
+    const content = userData.Fittingandcontentsform;
+    const fileName = 'FloorPlan.txt';
+    download(content, fileName);
+  };
+  const downloadEnergyPerformenceCertificate = () => {
+    const content = userData.Fittingandcontentsform;
+    const fileName = 'EnergyPerformenceCertificate.txt';
+    download(content, fileName);
+  };
+  const downloadLeaseholdInformation = () => {
+    const content = userData.Fittingandcontentsform;
+    const fileName = 'LeaseholdInformation.txt';
+    download(content, fileName);
+  };
+  const downloadPropertyInfoForm = () => {
+    const content = userData.Fittingandcontentsform;
+    const fileName = 'PropertyInfoForm.txt';
+    download(content, fileName);
+  };
+  const downloadLocalAuthoritySearch = () => {
+    const content = userData.Fittingandcontentsform;
+    const fileName = 'LocalAuthoritySearch.txt';
+    download(content, fileName);
+  };
+  const downloadPropertyValuationReport = () => {
+    const content = userData.Fittingandcontentsform;
+    const fileName = 'PropertyValuationReport.txt';
+    download(content, fileName);
+  };
+
+  const download = (content, fileName) => {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  };
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -66,7 +135,7 @@ const Listingrequest = () => {
   return (
     <div className='main'>
       <div className='list-head'>
-        <img alt='back-arrow' />
+        <img alt='back-arrow' src={backarrow} onClick={()=>{navigate('/')}} />
         <h1>Listing Request</h1>
         <div>
           <FormControl sx={{ m: 1, minWidth: 250 }}>
@@ -130,159 +199,119 @@ const Listingrequest = () => {
         {/* {renderListings()} */}
         <div>
           <img src="" alt='userimage'/>
-          <p>Name :  Alex</p>
-          <p>Address : No48</p>
+          {/* {Object.entries(userData).map(([key, value]) => (
+        <div key={key} style={{ display: 'flex', flexDirection: "row", justifyContent: "space-between" }}>
+          <div>{key}</div>
+          <div>:</div>
+          <div>{value}</div>
+        </div>
+      ))} */}
+      {/* {Object.entries(userData).map(([key, value]) => {
+        if (typeof value === 'object') {
+          return Object.entries(value).map(([nestedKey, nestedValue]) =>
+            renderKeyValue(`${key}.${nestedKey}`, nestedValue)
+          );
+        } else {
+          return renderKeyValue(key, value);
+        }
+      })} */}
+      {/* <p>Address : {userData.Address}</p>
+      <p>Pincode : {userData.Pincode}</p> */}
+
+          <div style={{display:'flex'}}>
+            <div>Name </div>
+            <div style={{paddingLeft:"35px",paddingRight:"10px"}}>:</div>
+            <div>{userData.name}</div>
+          </div>
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Address </div>
+            <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
+            <div>{userData.Address}</div>
+          </div>
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Pincode </div>
+            <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
+            <div>{userData.Pincode}</div>
+          </div>
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Phone No </div>
+            <div style={{paddingLeft:"5px",paddingRight:"10px"}}>:</div>
+            <div>{userData.contctDetails.phone}</div>
+          </div>
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Emain </div>
+            <div style={{paddingLeft:"30px",paddingRight:"10px"}}>:</div>
+            <div>{userData.contctDetails.email}</div>
+          </div>
+          
+          {/* <p>Address : No48</p>
           <p>Pincode : 600234</p>
           <p>COntact Details</p>
           <p>phone : 987654321</p>
-          <p>Mail ID: mmm@gmail.com</p>
+          <p>Mail ID: mmm@gmail.com</p> */}
         </div>
         <hr/>
-        {/* <div style={{display:'flex',flexDirection:"column",alignItems:'flex-start'}}> */}
-        {/* <h2>Documents</h2> */}
-        {/* <div className='mmm' >
-          <h2>Documents</h2>
-          <div style={{display:"flex",flexDirection:"row"}}>
-            <div>
-            <p>Property Title Deals</p>
-            </div>
-            <div>
-            <p>fitting and contents form</p>
-            </div>
-          </div>
-        </div> */}
+        
 
-<div className='cont3'>
+      <div className='cont3'>
                     <p> Documents</p>
                     <div className='cont4'>
                         
-                        <div className='contche' >
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche' onClick={downloadPropertyTitleDeals}>
+                            
                             <div className='doc'>
                                 <h3>Property title deals</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg>
-                            </div> */}
+                           
                         </div>
-                        <div className='contche'>
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche' onClick={downloadFittingAndContentsForm}>
+                            
                             <div className='doc'>
                                 <h3>Fitting and contents form(TA10)</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg> */}
-                            {/* </div> */}
+                            
                         </div>
-                        <div className='contche' >
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche' onClick={downloadEnergyPerformenceCertificate} >
+                            
                             <div className='doc'>
                                 <h3>Energy Performence Certificate(EPC)</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg>
-                            </div> */}
+                            
                         </div>
-                        <div className='contche' >
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche'onClick={downloadLeaseholdInformation} >
+                            
                             <div className='doc'>
                                 <h3>Leasehold Information(If applicable)</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg>
-                            </div> */}
+                            
                         </div>
-                        <div className='contche'>
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche' onClick={downloadPropertyInfoForm}>
+                            
                             <div className='doc'>
                                 <h3>Property Info Form(TA6)</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg>
-                            </div> */}
+                            
                         </div>
-                        <div className='contche' >
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche' onClick={downloadLocalAuthoritySearch} >
+                            
                             <div className='doc'>
                                 <h3>Local Authority Search</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg>
-                            </div> */}
+                            
                         </div>
-                        <div className='contche' >
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche' onClick={downloadPropertyValuationReport} >
+                            
                             <div className='doc'>
                                 <h3>Property Valuation Report</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg>
-                            </div> */}
+                            
                         </div>
-                        <div className='contche' >
-                            {/* <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                            </div> */}
+                        <div className='contche' onClick={downloadFloorplan}>
+                            
                             <div className='doc'>
                                 <h3>Floor Plan</h3>
                             </div>
-                            {/* <div className='doc'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-                            </svg>
-                            </div> */}
+                            
                         </div>
                         <div className=''>
                           <h1>
@@ -294,12 +323,11 @@ const Listingrequest = () => {
                   <h1 >Property Details</h1>
                   <div className='rooms-info-sub'>
                       <div >
-                      <SingleBedIcon sx={{fontSize:'40px'}}/>    
+                      <SingleBedIcon  sx={{fontSize:'40px'}}/>    
                       <input 
                           type='text'
                           name='numberOfRooms' 
-                          // value={formValues.numberOfRooms} 
-                          // onChange={handleInputChange}
+                         
                           pattern="-?\d*"
                       />            
                       </div>
@@ -308,8 +336,7 @@ const Listingrequest = () => {
                       <input 
                           type='text'
                           name='numberOfBathrooms' 
-                          // value={formValues.numberOfBathrooms}
-                          // onChange={handleInputChange}
+                          
                           pattern="-?\d*"
                       />             
                       </div>
@@ -318,8 +345,7 @@ const Listingrequest = () => {
                       <input 
                           type='text'
                           name='numberOfToilets' 
-                          // value={formValues.numberOfToilets} 
-                          // onChange={handleInputChange}
+                          
                           pattern="-?\d*"
                       />            
                       </div>
@@ -328,8 +354,7 @@ const Listingrequest = () => {
                       <input 
                           type='text'
                           name='numberOfParkingSpaces'
-                          // value={formValues.numberOfParkingSpaces} 
-                          // onChange={handleInputChange}
+                          
                           pattern="-?\d*"
                       />            
                       </div>
@@ -337,10 +362,7 @@ const Listingrequest = () => {
                 
 
                           </div>
-                          {/* <div style={{display:"flex", justifyContent:"space-between"}}>
-                            <div style={{marginRight:"70px"}}><h3>Any Special condition</h3></div>
-                            <div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p></div>
-                          </div> */}
+                          
                     </div>
                           <div style={{display:"flex",}}>
                             <div style={{marginRight:"40px"}}><h3>Any Special condition :</h3></div>

@@ -194,9 +194,14 @@ import Select from '@mui/material/Select';
 import "./Listingrequest.css";
 import samplelistinreq from "./samplelistingrequest.js";
 import toletlistinreq from './tolet.js';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import backarrow from '../Images/backarrow.png'
+import { useNavigate } from 'react-router-dom'
+
+
 
 const Listingrequest = () => {
+  const navigate = useNavigate()
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
@@ -286,7 +291,8 @@ const Listingrequest = () => {
   return (
     <div className='main'>
       <div className='list-head'>
-        <img alt='back-arrow' />
+        {/* <img alt='back-arrow' /> */}
+        <img src={backarrow} alt='back-arrow' onClick={()=>{navigate('/')}}/>
         <h1>Listing Request</h1>
         <div>
           <FormControl sx={{ m: 1, minWidth: 250 }}>
