@@ -33,12 +33,15 @@ const Imageupload = () => {
         }) => (
           // write your building UI
           <div className="upload__image-wrapper">
-            <div {...dragProps}>
-              {isDragging ? 'Drop here please' : 'Upload space'}
-              {imageList.map((image, index) => (
-                <img key={index} src={image['data_url']} alt="" />
-              ))}
+            <div className='view-upload-main-image'>
+              <div {...dragProps} className='view-upload-image'>
+                {/* {isDragging ? 'Drop here please' : 'Upload space'} */}
+                {imageList.map((image, index) => (
+                  <img key={index} src={image['data_url']} alt="" />
+                ))}
+              </div>
             </div>
+            
             {errors && (
               <div>
                 {errors.maxNumber && (
@@ -64,7 +67,7 @@ const Imageupload = () => {
               >
                 Click or Drop here
               </button>
-              {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
+              <button onClick={onImageRemoveAll}>Remove all images</button>
             </div>
           </div>
         )}
