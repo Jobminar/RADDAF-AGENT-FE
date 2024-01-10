@@ -13,12 +13,20 @@ import backarrow from '../Images/backarrow.png'
 import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled';
 import data from "./docdata.js"
 import HotelOutlinedIcon from '@mui/icons-material/HotelOutlined';
+import { useLocation } from 'react-router-dom';
+
 
 
 const Listingrequest = () => {
   const navigate = useNavigate()
   const [selectedOption, setSelectedOption] = useState("");
   const userData = data[0]; 
+  const location = useLocation();
+  const selectedProduct = location.state ? location.state.selectedProduct : null;
+
+  console.log(selectedProduct, "show data");
+  const timestamp = selectedProduct.scheduleDateTime;
+  const dateOnly = timestamp ? timestamp.substring(0, 10) : null;
 
   const renderKeyValue = (key, value) => (
     <div key={key} style={{ display: 'flex', flexDirection: "row", justifyContent: "space-between" }}>
@@ -29,45 +37,45 @@ const Listingrequest = () => {
   );
 
   const downloadPropertyTitleDeals = () => {
-    const content = userData.Propertytitledeals;
-    const fileName = 'Propertytitledeals.txt';
+    const content = selectedProduct.propertyDocuments;
+    const fileName = 'propertyDocuments.txt';
     download(content, fileName);
   };
 
   const downloadFittingAndContentsForm = () => {
-    const content = userData.Fittingandcontentsform;
-    const fileName = 'Fittingandcontentsform.txt';
+    const content = selectedProduct.fittingAndContentsForm;
+    const fileName = 'fittingAndContentsForm.txt';
     download(content, fileName);
   };
 
   const downloadFloorplan = () => {
-    const content = userData.Fittingandcontentsform;
-    const fileName = 'FloorPlan.txt';
+    const content = selectedProduct.floorplan;
+    const fileName = 'floorplan.txt';
     download(content, fileName);
   };
   const downloadEnergyPerformenceCertificate = () => {
-    const content = userData.Fittingandcontentsform;
+    const content = selectedProduct.energyPerformanceCertificate;
     const fileName = 'EnergyPerformenceCertificate.txt';
     download(content, fileName);
   };
   const downloadLeaseholdInformation = () => {
-    const content = userData.Fittingandcontentsform;
-    const fileName = 'LeaseholdInformation.txt';
+    const content = selectedProduct.leaseholdInformation;
+    const fileName = 'leaseholdInformation.txt';
     download(content, fileName);
   };
   const downloadPropertyInfoForm = () => {
-    const content = userData.Fittingandcontentsform;
-    const fileName = 'PropertyInfoForm.txt';
+    const content = selectedProduct.propertyInfoForm;
+    const fileName = 'propertyInfoForm.txt';
     download(content, fileName);
   };
   const downloadLocalAuthoritySearch = () => {
-    const content = userData.Fittingandcontentsform;
-    const fileName = 'LocalAuthoritySearch.txt';
+    const content = selectedProduct.localAuthoritySearch;
+    const fileName = 'localAuthoritySearch.txt';
     download(content, fileName);
   };
   const downloadPropertyValuationReport = () => {
-    const content = userData.Fittingandcontentsform;
-    const fileName = 'PropertyValuationReport.txt';
+    const content = selectedProduct.propertyValuationReport;
+    const fileName = 'propertyValuationReport.txt';
     download(content, fileName);
   };
 
@@ -81,6 +89,34 @@ const Listingrequest = () => {
     link.click();
 
     document.body.removeChild(link);
+  };
+
+  const [selectedOptiona, setSelectedOptiona] = useState(null);
+
+  // Options for the dropdown
+  const options = [
+    "For Sale",
+    "To-Let"
+  ];
+
+  // Event handler for option selection
+  const handleSelect = (optionb) => {
+    setSelectedOptiona(optionb);
+  };
+  const [selectedOptionb, setSelectedOptionb] = useState(null);
+
+  // Options for the dropdown
+  const optionb = [
+    "1",
+    "1.5",
+    "2",
+    "2.5",
+    "3"
+  ];
+
+  // Event handler for option selection
+  const handleSelectb = (option) => {
+    setSelectedOptionb(option);
   };
 
   const handleOptionChange = (event) => {
@@ -100,14 +136,14 @@ const Listingrequest = () => {
     else{
         a=toletlistinreq
     }
-      return a.map((data) => (
+      return selectedProduct.map((data) => (
         <div key={data.id} className='mains'>
           <div className=''>
             <div className=''>
 
               <div className='nn'>
                 <h1 className='headi'>Name</h1>
-                <h3>{data.name}</h3>
+                <h3>{data.contactDetails.name}</h3>
               </div>
               <div className='nn'>
                 <h1>Address</h1>
@@ -138,34 +174,23 @@ const Listingrequest = () => {
         <img alt='back-arrow' src={backarrow} onClick={()=>{navigate('/')}} />
         <h1>Listing Request</h1>
         <div>
-          <FormControl sx={{ m: 1, minWidth: 250 }}>
-            <Select
-              value={selectedOption}
-              onChange={handleOptionChange}
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={{
-                backgroundColor: '#9E5C08',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: '#9E5C08',
-                },
-                '&:focus': {
-                  backgroundColor: '#9E5C08',
-                  borderColor: 'blue', // Change border color on focus
-                },
-                '& .MuiSelect-icon': {
-                  color: 'white',
-                },
-              }}
-            >
-              {/* <MenuItem value="">Select Option</MenuItem> */}
-              <MenuItem value="Forsale">For Sale</MenuItem>
-              <MenuItem value="To-let">To Let</MenuItem>
-            </Select>
-          </FormControl>
+          {/* <FormControl sx={{ m: 1, minWidth: 250 }}> */}
+            
+            <select
+        value={selectedOptiona}
+        onChange={(e) => handleSelect(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}
+      >
+        {/* <option value="">My Properties</option> */}
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+            </select>
+          {/* </FormControl> */}
         </div>
         <div className='seconddrop'>
-        <FormControl sx={{ m: 1, minWidth: 250 }}>
+        {/* <FormControl sx={{ m: 1, minWidth: 250 }}>
             <Select
               value={selectedOption}
               onChange={handleOptionChange}
@@ -192,7 +217,18 @@ const Listingrequest = () => {
               <MenuItem value="2.5">2.5</MenuItem>
               <MenuItem value="3">3</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
+          <select
+        value={selectedOptionb}
+        onChange={(e) => handleSelectb(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}
+      >
+        <option value="">Generate Invoice</option>
+        {optionb.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+            </select>
         </div>
       </div>
       <div style={{display:"flex"}}>
@@ -221,27 +257,27 @@ const Listingrequest = () => {
           <div style={{display:'flex'}}>
             <div>Name </div>
             <div style={{paddingLeft:"35px",paddingRight:"10px"}}>:</div>
-            <div>{userData.name}</div>
+            <div>{selectedProduct.contactDetails.name}</div>
           </div>
           <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
             <div>Address </div>
             <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
-            <div>{userData.Address}</div>
+            <div>{selectedProduct.place}</div>
           </div>
           <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
             <div>Pincode </div>
             <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
-            <div>{userData.Pincode}</div>
+            <div>{selectedProduct.place}</div>
           </div>
           <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
             <div>Phone No </div>
             <div style={{paddingLeft:"5px",paddingRight:"10px"}}>:</div>
-            <div>{userData.contctDetails.phone}</div>
+            <div>{selectedProduct.contactDetails.phoneNumber}</div>
           </div>
           <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
             <div>Emain </div>
             <div style={{paddingLeft:"30px",paddingRight:"10px"}}>:</div>
-            <div>{userData.contctDetails.email}</div>
+            <div>{selectedProduct.contactDetails.email}</div>
           </div>
           
           {/* <p>Address : No48</p>
@@ -317,46 +353,28 @@ const Listingrequest = () => {
                           <h1>
                             Property Descrition:
                           </h1>
-                          <p className='bpara'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                          <p className='bpara'>{selectedProduct.propertyDescription}</p>
                         </div>
-                          <div className='rooms-info' style={{paddingTop:"20px"}}>
+                          <div className='rooms-info' style={{paddingTop:"20px",paddingLeft:"10px"}}>
                   <h1 >Property Details</h1>
-                  <div className='rooms-info-sub'>
+                  <div className='rooms-info-sub' style={{marginTop:"20px"}}>
                       <div >
                       <SingleBedIcon  sx={{fontSize:'40px'}}/>    
-                      <input 
-                          type='text'
-                          name='numberOfRooms' 
-                         
-                          pattern="-?\d*"
-                      />            
+                      <h1>{selectedProduct.noOfBedrooms}           </h1>
                       </div>
                       <div>
-                      <BathtubIcon  sx={{fontSize:'40px'}}/>    
-                      <input 
-                          type='text'
-                          name='numberOfBathrooms' 
-                          
-                          pattern="-?\d*"
-                      />             
+                      <BathtubIcon  sx={{fontSize:'40px'}}/> 
+                      <h1>   
+                      {selectedProduct.noOfBathrooms}     
+                      </h1>        
                       </div>
                       <div>
                       <img src={toiletlogo} alt='toilet' style={{width:'40px'}}/>    
-                      <input 
-                          type='text'
-                          name='numberOfToilets' 
-                          
-                          pattern="-?\d*"
-                      />            
+                      <h1>{selectedProduct.noOfToilets}</h1>            
                       </div>
                       <div>
                       <DirectionsCarFilledIcon sx={{fontSize:'40px'}}/>   
-                      <input 
-                          type='text'
-                          name='numberOfParkingSpaces'
-                          
-                          pattern="-?\d*"
-                      />            
+                      <h1>{selectedProduct.parkingCapacity}</h1>            
                       </div>
                   </div>
                 
@@ -376,10 +394,12 @@ const Listingrequest = () => {
                                           <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                                         </svg>
                                       </div>
-                            <div style={{backgroundColor:"#FFECDE", padding:"10px"}}><p>23rd Nov 22023, 8:00 am</p></div>
+                            <div style={{backgroundColor:"#FFECDE", padding:"10px"}}><p>{dateOnly}</p></div>
                           </div>
-                          <button style={{padding:"20px",borderRadius:"10px",fontSize:"20px",fontWeight:"bold",backgroundColor:"#9E5C08",border:"none",color:"white",width:"10%",marginRight:"20px"}}>Approve</button>
-                          <button style={{padding:"20px",borderRadius:"10px",fontSize:"20px",fontWeight:"bold",border:"none",color:"#9E5C08",width:"10%",marginRight:"20px"}}>Decline</button>
+                          {/* <button style={{padding:"20px",borderRadius:"10px",fontSize:"20px",fontWeight:"bold",backgroundColor:"#9E5C08",border:"none",color:"white",width:"10%",marginRight:"20px"}}>Approve</button>
+                          <button style={{padding:"20px",borderRadius:"10px",fontSize:"20px",fontWeight:"bold",border:"none",color:"#9E5C08",width:"10%",marginRight:"20px"}}>Decline</button> */}
+                          <button style={{width:"10%",height:"7%",backgroundColor:"#9E5C08",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",border:"none",color:"white",marginRight:"10px"}}>Approve</button>
+                          <button style={{width:"10%",height:"7%",backgroundColor:"white",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",borderColor:"#9E5C08",borderStyle:"solid",color:"#9E5C08",marginRight:"10px"}}>Decline</button>
                     </div>                    
       </div>
     </div>

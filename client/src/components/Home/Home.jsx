@@ -96,7 +96,7 @@ const Homeagent=(()=>{
                             <p>My Rental Request</p>
                             <p onClick={()=>{navigate('/listaproperty')}}>List a Properties</p>
                             <p>My Listed Properties</p>
-                            <p>My Valuation Request</p>
+                            <p onClick={(()=>{navigate('/valuationrequest')})}>My Valuation Request</p>
                     </div>
                     <div className='my-links'>
                             <div className='my-sub-links'>
