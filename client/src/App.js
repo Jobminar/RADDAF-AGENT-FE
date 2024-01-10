@@ -15,6 +15,7 @@ import Mylandlords from "./components/MyLandLords/Mylandlords.js";
 import Myrentalrequests from "./components/Myrental/myrentalrequests.jsx";
 import Propertyviewpage from "./components/Myrental/propertyviewpage.jsx";
 import Mylistedproperties from "./components/Mylistedproperties/mylistedproperties.jsx";
+import Valuationrequest from "./components/Valuationrequest/Valuationrequest.js"
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/viewdocuments" element={<Viewdocuments/>}/>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/valuationrequest" element={<Valuationrequest/>}/>
           </Routes>
         </BrowserRouter>
    </>

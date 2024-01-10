@@ -173,6 +173,7 @@ dimensions-lw p{
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    color: black;
     padding-left: 2rem;
 }
 .rooms-info h1{
