@@ -76,6 +76,9 @@ box-shadow: -5px 4px 14.899999618530273px 0px #00000040;
     border-bottom: 2px solid #955108;
 
 }
+.my-own p:hover{
+    cursor: pointer;
+}
 
 .message-con{
     width: 100%;
