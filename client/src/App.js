@@ -8,6 +8,10 @@ import Viewdocuments from './components/Viewdocuments/viewdocuments.js'
 import Signup from "./components/signup/Signup.js";
 import Login from "./components/login/Login.js";
 import Nopage from "./components/login/Nopage.js";
+import Myclients from "./components/MyClinets/Myclients.js";
+import Myzone from "./components/MyZone/Myzone.js";
+import Mytenats from "./components/MyTenants/Mytenats.js";
+import Mylandlords from "./components/MyLandLords/Mylandlords.js";
 
 
 function App() {
@@ -23,6 +27,10 @@ function App() {
             <Route path="/viewdocuments" element={<Viewdocuments/>}/>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/myclients" element={<Myclients />} />
+            <Route path="/myzone" element={<Myzone />} />
+            <Route path="/mytenats" element={<Mytenats />} />
+            <Route path="/mylandlords" element={<Mylandlords />}/>
           </Routes>
         </BrowserRouter>
    </>
