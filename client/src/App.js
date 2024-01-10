@@ -8,13 +8,13 @@ import Viewdocuments from './components/Viewdocuments/viewdocuments.js'
 import Signup from "./components/signup/Signup.js";
 import Login from "./components/login/Login.js";
 import Nopage from "./components/login/Nopage.js";
+import Myrentalrequests from "./components/Myrental/myrentalrequests.jsx";
+import Propertyviewpage from "./components/Myrental/propertyviewpage.jsx";
+import Mylistedproperties from "./components/Mylistedproperties/mylistedproperties.jsx";
 import Myclients from "./components/MyClinets/Myclients.js";
 import Myzone from "./components/MyZone/Myzone.js";
 import Mytenats from "./components/MyTenants/Mytenats.js";
 import Mylandlords from "./components/MyLandLords/Mylandlords.js";
-import Myrentalrequests from "./components/Myrental/myrentalrequests.jsx";
-import Propertyviewpage from "./components/Myrental/propertyviewpage.jsx";
-import Mylistedproperties from "./components/Mylistedproperties/mylistedproperties.jsx";
 
 
 function App() {
@@ -30,6 +30,13 @@ function App() {
             <Route path="/viewdocuments" element={<Viewdocuments/>}/>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/myrentalrequests" element={<Myrentalrequests/>}/>
+            <Route path="/mylistedproperties" element={<Mylistedproperties />}/>
+            <Route path="/propertyviewpage" element={<Propertyviewpage />}/>
+            <Route path="/myclients" element={<Myclients />} />
+            <Route path="/myzone" element={<Myzone />} />
+            <Route path="/mytenats" element={<Mytenats />} />
+            <Route path="/mylandlords" element={<Mylandlords />}/>
           </Routes>
         </BrowserRouter>
    </>
