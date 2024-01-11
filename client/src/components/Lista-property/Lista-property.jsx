@@ -6,14 +6,15 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 // mui
-// import InputLabel from '@mui/material/InputLabel';
+
 import MenuItem from "@mui/material/MenuItem";
-// import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-// import { Button } from '@mui/material';
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 // rooms have added
 import CurrencyPoundIcon from '@mui/icons-material/CurrencyPound';
 import SingleBedIcon from "@mui/icons-material/SingleBed";
@@ -29,6 +30,7 @@ import Imageupload from "../Imageupload/Imageupload";
 const Listaproperty = () => {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState(null);
+  const[selectedepcvalue,setselectedepcvalue]=useState('EPC VALUE')
   const [formValues, setFormValues] = useState({
     propertyDescription: "",
     propertytype: "",
@@ -68,8 +70,9 @@ const Listaproperty = () => {
     FloorPlan: null,
     place:'',
     price:'',
+    pincode:'',
+    epcvalue:'',
 
-    // Add more fields as needed
   });
 
   const handleInputChange = (e) => {
@@ -206,7 +209,7 @@ const Listaproperty = () => {
       "contactDetails.subject",
       formValues.contactDetails.subject
     );
-    // place & price
+    // place & price & pincode & epc value
     formData.append(
       "place",
       formValues.place
@@ -214,6 +217,14 @@ const Listaproperty = () => {
     formData.append(
       "price",
       formValues.price
+    );
+    formData.append(
+      "pincode",
+      formValues.pincode
+    );
+    formData.append(
+      "epcvalue",
+      formValues.epcvalue
     );
 
     // Nearby details
@@ -1102,11 +1113,115 @@ const Listaproperty = () => {
               value={formValues.price}
               onChange={handleInputChange}
             />  
-            
-
+        </div>
+        <div className="pincode">
+          <p>Pincode : </p>
+          <TextField
+              id="outlined-multiline-flexible"
+              multiline
+              maxRows={4}
+             
+              sx={{
+                m: 0,
+                width: "20rem",
+                display: 'flex', 
+                alignItems: 'center',
+                fontSize: '50',
+                "& .MuiFilledInput-root": {
+                  background: "#FFECDE",
+                  "&:hover": {
+                    background: "#FFECDE", 
+                  },
+                  "&.Mui-focused": {
+                    border: "none", // Remove border on focus
+                    boxShadow: "none", // Remove box shadow on focus
+                    borderBlockStyle: "#FFECDE",
+                  },
+                },
+              }}
+              variant="filled"
+              name="price"
+              value={formValues.pincode}
+              onChange={handleInputChange}
+            />  
         </div>
 
                  
+      </div>
+      <div className="checkboxes">
+         <FormControlLabel  control={<Checkbox />} label="Street Parking" className="Street-Parking"  style={{ color: '#9E5C08' ,fontSize:'30px'}}/>
+         <FormControlLabel  control={<Checkbox />} label="Rear Garden" className="Rear-Garden"  style={{ color: '#9E5C08' }}/>
+         <FormControlLabel  control={<Checkbox />} label="Gas Central Heating" className="Gas-Central-Heating"  style={{ color: '#9E5C08' }}/>
+         <FormControlLabel  control={<Checkbox />} label="Double-Glazed-Windows" className="Double-Glazed-Windows"  style={{ color: '#9E5C08' }}/>
+         <div className="epcvalue-head">
+          <p>EPC Value:</p>
+          <FormControl sx={{ m: 1, minWidth: 20 }}>
+            <Select
+              inputProps={{ "aria-label": "Without label" }}
+              sx={{
+                
+                color: "#9E5C08",
+                "&:hover": {
+                  Color: "#9E5C08",
+                },
+                "&:focus": {
+                 Color: "#9E5C08",
+                  borderColor: "blue", 
+                },
+                "& .MuiSelect-icon": {
+                  color: "white",
+                },
+              }}
+              name="epcvalue"
+              value={formValues.epcvalue}
+              onChange={handleInputChange}
+            >
+              <MenuItem
+                value="A"
+                onClick={() => setselectedepcvalue("A")}
+              >
+                A
+              </MenuItem>
+              <MenuItem
+                value="B"
+                onClick={() => setselectedepcvalue("B")}
+              >
+                B
+              </MenuItem>
+              <MenuItem
+                value="C"
+                onClick={() => setselectedepcvalue("C")}
+              >
+                C
+              </MenuItem>
+              <MenuItem
+                value="D"
+                onClick={() => setselectedepcvalue("D")}
+              >
+                D
+              </MenuItem>
+              <MenuItem
+                value="E"
+                onClick={() => setselectedepcvalue("E")}
+              >
+                E
+              </MenuItem>
+              <MenuItem
+                value="F"
+                onClick={() => setselectedepcvalue("F")}
+              >
+                F
+              </MenuItem>
+              <MenuItem
+                value="G"
+                onClick={() => setselectedepcvalue("G")}
+              >
+                G
+              </MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <h1>{formValues.epcvalue}</h1>
       </div>
       <div className="buttons">
         <button onClick={handleSkip}>Skip</button>
