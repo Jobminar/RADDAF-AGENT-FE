@@ -18,7 +18,7 @@ import parking from '../Images/car.png';
 const Mylistedproperties = () => {
     const navigate = useNavigate()
     // tolet 0r forsale
-    const [selectedValue, setSelectedValue] = useState('Tolet'); 
+    // const [selectedValue, setSelectedValue] = useState('Tolet'); 
 
     const handleChange = (event) => {
       setSelectedValue(event.target.value);
@@ -68,7 +68,7 @@ const Mylistedproperties = () => {
         <div className='head-main'>
             <img src={backarrow} alt='backarrow' onClick={()=>{navigate('/')}}/>
             <h1>My Listed properties</h1>
-            <div>
+            {/* <div>
                 <FormControl className='head-dropdown'
                  sx={{ m: 1, minWidth: 120 }}
                  style={{
@@ -100,7 +100,7 @@ const Mylistedproperties = () => {
                 
                 </Select>
                 </FormControl>
-            </div>
+            </div> */}
         </div>
         
         {toletListings.map((listing) => (
