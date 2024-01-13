@@ -8,6 +8,7 @@ import toilet from '../Images/toilet.png';
 import washroom from '../Images/washroom.png';
 import parking from '../Images/car.png';
 import proimg from "../Images/profile.png"
+import axios from 'axios';
 
 
 const Listingrequest = () => {
@@ -19,7 +20,55 @@ const Listingrequest = () => {
   const timestamp = selectedProduct.scheduleDateTime;
   const dateOnly = timestamp ? timestamp.substring(0, 10) : null;
 
+  // const listingId = {selectedProduct}; // Replace with your actual listingId
+  const [listingIsVerified, setListingIsVerified] = useState(false);
+  const handleApprove = async () => {
+    // try {
+    //   // Make a PATCH request to update the isVerified field
+    //   // const response = await axios.patch(`/listing-property/get-listings/${selectedProduct._id}`);
+    //   // console.log(response.selectedProduct._id)
 
+    //   // // Assuming the backend responds with the updated listing data
+    //   // const updatedListing = response.data;
+
+    //   // // Update the local state or re-fetch the listing data
+    //   // setListingIsVerified(updatedListing.isVerified);
+    //   const response = await axios.patch(`https://raddaf-be.onrender.com/listing-property/get-listings/${selectedProduct._id}`, {
+    //     isVerified: true,
+    //   });
+
+    //   // Assuming the backend responds with the updated listing data
+    //   const updatedListing = response.data;
+
+    //   // Update the local state or re-fetch the listing data
+    //   setListingIsVerified(updatedListing.isVerified);
+    // }
+    try {
+      const response = await fetch(`https://raddaf-be.onrender.com/listing-property/get-listings/${selectedProduct._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          isVerified: true,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+
+      // Assuming the backend responds with the updated listing data
+      const updatedListing = await response.json();
+
+      // Update the local state or re-fetch the listing data
+      setListingIsVerified(updatedListing.isVerified);
+    } 
+    catch (error) {
+      console.error('Error approving listing:', error);
+      // Handle error, e.g., show an error message to the user
+    }
+  };
 
   const downloadPropertyTitleDeals = () => {
     const content = selectedProduct.propertyDocuments;
@@ -258,7 +307,7 @@ const Listingrequest = () => {
                             <div style={{backgroundColor:"#FFECDE", padding:"10px"}}><p>{dateOnly}</p></div>
                           </div>
                           
-                          <button style={{width:"10%",height:"7%",backgroundColor:"#9E5C08",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",border:"none",color:"white",marginRight:"10px"}}>Approve</button>
+                          <button onClick={handleApprove} style={{width:"10%",height:"7%",backgroundColor:"#9E5C08",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",border:"none",color:"white",marginRight:"10px"}}>Approve</button>
                           <button style={{width:"10%",height:"7%",backgroundColor:"white",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",borderColor:"#9E5C08",borderStyle:"solid",color:"#9E5C08",marginRight:"10px"}}>Decline</button>
                     </div>                    
       </div>
