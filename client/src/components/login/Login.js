@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
-import '../login/login.css';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-
-
+import React, { useState } from "react";
+import { TextField, Checkbox, FormControlLabel, Button } from "@mui/material";
+import "../login/login.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    rememberMe: false
+    email: "",
+    password: "",
+    rememberMe: false,
   });
 
   const handleInputChange = (e) => {
@@ -26,49 +24,56 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://raddaf-be.onrender.com/agent-auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://raddaf-be.onrender.com/agent-auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log('Login successful:', data);
+        console.log("Login successful:", data);
         Swal.fire({
-          icon:"success",
-          title:"Successful Login",
-          text:"Login has been successfull"
-        })
+          icon: "success",
+          title: "Successful Login",
+          text: "Login has been successful",
+        });
+
+        // Set user data in session storage
+        sessionStorage.setItem("agentData", JSON.stringify(data.agent));
+
         // Handle successful login, e.g., redirect to another page
+        navigate("/dashboard");
       } else {
-        console.error('Login failed:', data.error);
+        console.error("Login failed:", data.error);
         // Handle failed login, e.g., display an error message
         Swal.fire({
-          icon:"error",
-          title:"Failed to Login",
-          text:data.error
-        })
+          icon: "error",
+          title: "Failed to Login",
+          text: data.error,
+        });
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error("Error during login:", error);
       Swal.fire({
-        icon:"error",
-        title:"Failed to Login",
-        text:"Login has been failed"
-      })
+        icon: "error",
+        title: "Failed to Login",
+        text: "Login has been failed",
+      });
     }
 
-    console.log('Login clicked', formData);
+    console.log("Login clicked", formData);
   };
 
   return (
-    <div className='main-divs'>
-      
-      <form className='form-contain' onSubmit={handleSubmit}>
+    <div className="main-divs">
+      <form className="form-contain" onSubmit={handleSubmit}>
         <h2>Login Form</h2>
         <TextField
           variant="filled"
@@ -102,16 +107,16 @@ const Login = () => {
           }
           label="Remember Me"
         />
-        <button type="submit" className='button-admin'>
+        <button type="submit" className="button-admin">
           Login
         </button>
-        <div className='icons-mui'> 
-        <p>Not Account ?</p>
-        <p style={{cursor:"pointer"}} onClick={()=>navigate("/signup")}>Register Now</p>
-              
+        <div className="icons-mui">
+          <p>Not Account ?</p>
+          <p style={{ cursor: "pointer" }} onClick={() => navigate("/signup")}>
+            Register Now
+          </p>
         </div>
       </form>
-      
     </div>
   );
 };
