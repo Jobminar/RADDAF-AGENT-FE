@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
 import '../login/login.css';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import { GoogleLogin,GoogleOAuthProvider} from '@react-oauth/google';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Login = () => {
+  const navigate=useNavigate()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -37,13 +38,28 @@ const Login = () => {
 
       if (response.ok) {
         console.log('Login successful:', data);
+        Swal.fire({
+          icon:"success",
+          title:"Successful Login",
+          text:"Login has been successfull"
+        })
         // Handle successful login, e.g., redirect to another page
       } else {
         console.error('Login failed:', data.error);
         // Handle failed login, e.g., display an error message
+        Swal.fire({
+          icon:"error",
+          title:"Failed to Login",
+          text:data.error
+        })
       }
     } catch (error) {
       console.error('Error during login:', error);
+      Swal.fire({
+        icon:"error",
+        title:"Failed to Login",
+        text:"Login has been failed"
+      })
     }
 
     console.log('Login clicked', formData);
@@ -89,14 +105,9 @@ const Login = () => {
         <button type="submit" className='button-admin'>
           Login
         </button>
-        <div className='icons-mui'>
-        <Button sx={{background:'white',color:"black"}} className='iconbut' startIcon={<FacebookIcon sx={{color:"blue"}}/>}>Facebook</Button>
-         
-          <GoogleOAuthProvider>
-          <GoogleLogin  />
-          
-          </GoogleOAuthProvider>
-             
+        <div className='icons-mui'> 
+        <p>Not Account ?</p>
+        <p style={{cursor:"pointer"}} onClick={()=>navigate("/signup")}>Register Now</p>
               
         </div>
       </form>
