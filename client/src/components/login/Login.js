@@ -46,7 +46,7 @@ const Login = () => {
         });
 
         // Set user data in session storage
-        sessionStorage.setItem("agentData", JSON.stringify(data.agent));
+        sessionStorage.setItem("userData", JSON.stringify(data.userData));
 
         // Handle successful login, e.g., redirect to another page
         navigate("/dashboard");
