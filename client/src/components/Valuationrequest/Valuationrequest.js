@@ -150,7 +150,7 @@ const Valuationrequest = () => {
         <div style={{ margin: "50px" }}>
           <p style={{margin:"20px"}}>need to update date here</p>
           <div style={{display:'flex'}}>
-            <div style={{backgroundColor:"#FFD2B1",borderStyle:"solid",borderColor:"#955108",borderTop:"none",borderWidth:"6px",borderBottom:"none",borderRight:"none",padding:"20px",marginLeft:"20px",width:"80%"}}>
+            <div className='hhh' style={{backgroundColor:"#FFD2B1",borderStyle:"solid",borderColor:"#955108",borderTop:"none",borderWidth:"6px",borderBottom:"none",borderRight:"none",padding:"20px",marginLeft:"20px",width:"80%"}}>
                <div style={{display:"flex",justifyContent:"space-between"}}>
                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",width:"80%"}}>
                   <div>
@@ -186,7 +186,7 @@ const Valuationrequest = () => {
                 <button style={{ padding: "50px" }}>Valuate </button>
               </div> */}
             </div>
-            <div style={{}}>
+            <div className='hhh'>
                 <button style={{ padding: "75px",backgroundColor:"#955108",border:"none",color:"white",fontSize:"20px" }}>Valuate </button>
               </div>
           </div>

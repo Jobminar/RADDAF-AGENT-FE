@@ -21,3 +21,10 @@
     margin: 30px;
     font-family: "Roboto";
 }
+.hhh:hover {
+    transform: scale(0.9);
+}
+
+.hhh {
+    transition: transform 0.3s;
+}

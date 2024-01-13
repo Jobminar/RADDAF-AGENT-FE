@@ -26,14 +26,9 @@
 }
 .messaa{
     display: flex;
-    /* display: flex; */
     justify-content: start;
-    /* flex-wrap: wrap; */
-    /* justify-content: flex-start; */
-    /* align-items: flex-start; */
 }
 .mmm{
-    /* border: 1px solid black; */
     display: grid;
     grid-template-columns: 32% 32% 32%;
     justify-content: center;
@@ -68,8 +63,6 @@
 
 .contche{
     display: flex;
-    /* justify-content: center; */
-    /* padding-left: 5px; */
     align-items: center;
 }
 
@@ -77,15 +70,9 @@
     padding-left: 10px;
 }
 .cont4{
-    /* display: grid; */
     display: grid;
     justify-content: flex-end;
     grid-template-columns: repeat(2, 1fr);
-    /* gap: 20px; */
-    /* justify-content: center; */
-    /* display: flex;
-    align-items: center;
-    justify-content: space-between; */
 }
 .bpara{
     background-color: #FFECDE;
@@ -95,3 +82,10 @@
 .main{
     color: #955108;
 }
+
+.rooms-detai{
+    display: flex;
+      column-gap: 2rem;
+      align-items: baseline;
+      
+  }
