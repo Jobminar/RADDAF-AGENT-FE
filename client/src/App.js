@@ -16,6 +16,7 @@ import Myzone from "./components/MyZone/Myzone.js";
 import Mytenats from "./components/MyTenants/Mytenats.js";
 import Mylandlords from "./components/MyLandLords/Mylandlords.js";
 import Valuationrequest from "./components/Valuationrequest/Valuationrequest.js"
+import PropSubmit from "./components/PropList/PropSubmit.jsx";
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
           <Routes>
             <Route path="*" element={<Nopage />} />
             <Route path="/" element={<Homeagent/>}/>
-            <Route path="/listaproperty" element={<Listaproperty/>}/>
+            {/* <Route path="/listaproperty" element={<Listaproperty/>}/> */}
             <Route path="/listingrequest" element={<Listingrequest/>} />
             <Route path="/viewdocuments" element={<Viewdocuments/>}/>
             <Route path="/signup" element={<Signup />} />
@@ -39,6 +40,7 @@ function App() {
             <Route path="/myzone" element={<Myzone />} />
             <Route path="/mytenats" element={<Mytenats />} />
             <Route path="/mylandlords" element={<Mylandlords />}/>
+            <Route path="/listaproperty" element={<PropSubmit />} />
           </Routes>
         </BrowserRouter>
    </>
