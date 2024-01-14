@@ -1,328 +1,277 @@
-// import React from 'react'
-// import MenuItem from '@mui/material/MenuItem';
-// // import FormHelperText from '@mui/material/FormHelperText';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
+// import React, { useEffect, useState } from 'react';
+// import backarrow from '../Images/backarrow.png';
+// import {  useNavigate } from 'react-router-dom';
+
+
+// import axios from 'axios';
 // import "./Listingrequest.css"
-// import samplelistinreq from "./samplelistingrequest.js"
-// import toletlistinreq from './tolet.js';
 
-// const Listingrequest = () => {
-//     const [selectedOption, setSelectedOption] = useState("");
+// const Valuationrequest = () => {
+//   const navigate = useNavigate();
+//   const [selectedProduct, setSelectedProduct] = useState([]);
+//   const [selectedOption, setSelectedOption] = useState("To-Let");
 
-//   const handleOptionChange = (event) => {
-//     setSelectedOption(event.target.value);
-//   };
-//   return (
-//     <div className='main'>
-//         <div className='list-head'>
-//             <img  alt='back-arrow'/>
-//             <h1>List a Property</h1>
-//             <div>
-//             <FormControl sx={{ m: 1, minWidth: 250}}>
-//                 <Select
-//                 // value={age}
-//                 // onChange={handleChange}
-//                 // displayEmpty
-//                 inputProps={{ 'aria-label': 'Without label' }}
-//                 sx={{
-//                     backgroundColor: '#9E5C08',
-//                     color: 'white',
-//                     '&:hover': {
-//                       backgroundColor: '#9E5C08',
-//                     },
-//                     '&:focus': {
-//                       backgroundColor: '#9E5C08',
-//                       borderColor: 'blue', // Change border color on focus
-//                     },
-//                     '& .MuiSelect-icon': {
-//                       color: 'white',
-//                     },
-//                   }}
-//                 >
-                
-//                 <MenuItem value="">
-//                 </MenuItem>
-//                 <MenuItem value="Forsale">Forsale</MenuItem>
-//                 <MenuItem value="To-let">To-let</MenuItem>
-//                 </Select>
-//             </FormControl>
-//             </div>
-//         </div>
-//         <div className="messa">
-                    
-//                   {
-//                     samplelistinreq.map((data)=>{
-//                         return(
-//                             <>
-//                                 <div  className='mains'>                                
-//                                     <div key={data.id} className='profile-ent'>
-//                                         <div className='incont'>
-//                                         {/* <hr className="hr-line" /> */}
-//                                         <div className='nn'>
-//                                             <h1 className='headi'>Name</h1>
-//                                             {/* <hr className="hr-line" /> */}
-//                                             <h3>{data.name}</h3>
-//                                         </div>
-//                                         <div className='nn'>
-//                                             <h1>Address</h1>
-//                                             {/* <hr/> */}
-//                                             <h3>{data.address}</h3>
-//                                         </div>
-//                                         <div className='nn'>
-//                                             <h1>Pincode</h1>
-//                                             {/* <hr/> */}
-//                                             <h3>{data.pincode}</h3>
-//                                         </div>
-//                                         <div className='nns'>
-//                                             <h1>Contact Details</h1>
-//                                             <h3>{data.contactdetails.phn}<br/>
-//                                             {data.contactdetails.email}</h3>
-//                                         </div>
-//                                         <div className='nn'>
-//                                             <h1>View Documents</h1>
-//                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi ii bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-//                                                 <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-//                                             </svg>
-//                                         </div> 
-//                                     </div>
-//                                     </div>
-//                                 </div>
-//                             </>
-//                         )
-//                     })
-//                   }
-//                 </div>
-//     </div>
-//   )
-// }
+//   const [listingData, setListingData] = useState([]);
 
-// export default Listingrequest
+  
 
-// import React, { useState } from 'react';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
-// import "./Listingrequest.css";
-// import samplelistinreq from "./samplelistingrequest.js";
-// import toletlistinreq from './tolet.js';
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get('https://raddaf-be.onrender.com/listing-property/get-listings');
+//         const { data } = response;
 
-// const Listingrequest = () => {
-//   const [selectedOption, setSelectedOption] = useState("");
+//         let filteredListings = [];
+//         if (selectedOption === "For Sale") {
+//           filteredListings = data.filter(item => item.purpose === 'Sale');
+//         } else if (selectedOption === "To-Let") {
+//           filteredListings = data.filter(item => item.purpose === 'Tolet');
+//         }
 
-//   const handleOptionChange = (event) => {
-//     setSelectedOption(event.target.value);
+//         setListingData(filteredListings);
+//         console.log(filteredListings)
+
+//         // setListingData(response.data);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   const handleProduct = (item) => {
+//     setSelectedProduct(item);
+//     navigate('/viewdocuments', { state: { selectedProduct: item } });
+//     console.log(item,'data')
 //   };
 
-//   return (
-//     <div className='main'>
-//       <div className='list-head'>
-//         <img alt='back-arrow' />
-//         <h1>List a Property</h1>
-//         <div>
-//           <FormControl sx={{ m: 1, minWidth: 250 }}>
-//             <Select
-//               value={selectedOption}
-//               onChange={handleOptionChange}
-//               inputProps={{ 'aria-label': 'Without label' }}
-//               sx={{
-//                 backgroundColor: '#9E5C08',
-//                 color: 'white',
-//                 '&:hover': {
-//                   backgroundColor: '#9E5C08',
-//                 },
-//                 '&:focus': {
-//                   backgroundColor: '#9E5C08',
-//                   borderColor: 'blue', // Change border color on focus
-//                 },
-//                 '& .MuiSelect-icon': {
-//                   color: 'white',
-//                 },
+//   const handleSelect = (optionb) => {
+//     setSelectedOptiona(optionb);
+//   };
+
+//   const [selectedOptiona, setSelectedOptiona] = useState(null);
+
+//   const options = [
+//     "For Sale",
+//     "To-Let"
+//   ];
+
+
+//   const renderListings = () => {
+//     return listingData.map((data) => {
+//       const timestamp = data.scheduleDateTime;
+//       const dateOnly = timestamp ? timestamp.substring(0, 10) : null;
+//     return  (
+//       <div key={data.id}>
+//         <div style={{ margin: '50px' }}>
+//           <p style={{ margin: '20px' }}>{dateOnly}</p>
+//           <div className='hhh' style={{ display: 'flex', overflow:"auto" }}>
+//             <div
+//               style={{
+//                 backgroundColor: '#FFD2B1',
+//                 borderStyle: 'solid',
+//                 borderColor: '#955108',
+//                 borderTop: 'none',
+//                 borderWidth: '6px',
+//                 borderBottom: 'none',
+//                 borderRight: 'none',
+//                 padding: '20px',
+//                 marginLeft: '20px',
+//                 width: '100%',
 //               }}
 //             >
-//               <MenuItem value="">Select Option</MenuItem>
-//               <MenuItem value="Forsale">Forsale</MenuItem>
-//               <MenuItem value="To-let">To-let</MenuItem>
-//             </Select>
-//           </FormControl>
+//               <table>
+//                             <thead style={{marginBottom:"px"}}>
+//                                 <tr style={{borderBottom:"0.1%",borderColor:"#955108",borderStyle:"groove",borderTop:"none",borderLeft:"none",borderRight:"none"}}>
+//                                     <th>Name</th>
+//                                     <th>Address</th>
+//                                     <th>Pin code</th>
+//                                     <th>contact Details</th>
+//                                     <th>View Docuemnts</th>
+//                                 </tr>
+                            
+//                             </thead>
+//                             <tbody>
+//                                 <tr class="hove">
+//                                     <td>{data.contactDetails.name}</td>
+//                                     <td>{data.place}</td>
+//                                     <td>{data.place}</td>
+//                                     <td>{data.contactDetails.phoneNumber}<br/>{data.contactDetails.email}</td>
+//                                     <td>
+//                                         <div style={{textAlign:"center"}} className='nn'>
+//                                             <svg xmlns="http://www.w3.org/2000/svg" onClick={() => handleProduct(data)} width="40" style={{paddingRight:"60px"}} height="40" fill="#955108" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+//                                                 <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+//                                             </svg>
+//                                         </div>
+//                                     </td>
+//                                 </tr>
+//                             </tbody>
+//                         </table>
+            
+            
+//                </div>
+            
+//           </div>
 //         </div>
 //       </div>
-//       <div className="messa">
-//         {samplelistinreq.map((data) => (
-//           <div key={data.id} className='mains'>
-//             <div className='profile-ent'>
-//               <div className='incont'>
-//                 <div className='nn'>
-//                   <h1 className='headi'>Name</h1>
-//                   <h3>{data.name}</h3>
-//                 </div>
-//                 <div className='nn'>
-//                   <h1>Address</h1>
-//                   <h3>{data.address}</h3>
-//                 </div>
-//                 <div className='nn'>
-//                   <h1>Pincode</h1>
-//                   <h3>{data.pincode}</h3>
-//                 </div>
-//                 <div className='nns'>
-//                   <h1>Contact Details</h1>
-//                   <h3>{data.contactdetails.phn}<br />
-//                     {data.contactdetails.email}</h3>
-//                 </div>
-//                 <div className='nn'>
-//                   <h1>View Documents</h1>
-//                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi ii bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-//                     <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-//                   </svg>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
+//     )
+//     });
+//   };
+
+//   return (
+//     <div>
+//       <div className='list-hea'>
+//         <img src={backarrow} alt='back-arrow' onClick={() => navigate('/')} />
+//         <h1>Listing Request</h1>
+//         <div>
+//             <select
+//         value={selectedOptiona}
+//         onChange={(e) => handleSelect(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}>
+//         {options.map((option, index) => (
+//           <option key={index} value={option}>
+//             {option}
+//           </option>
 //         ))}
+//             </select>
+//         </div>
 //       </div>
+//       <div>{renderListings()}</div>
 //     </div>
 //   );
-// }
+// };
 
-// export default Listingrequest;
+// export default Valuationrequest;
 
-
-import React, { useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import "./Listingrequest.css";
-import samplelistinreq from "./samplelistingrequest.js";
-import toletlistinreq from './tolet.js';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import backarrow from '../Images/backarrow.png';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import "./Listingrequest.css"
 
 const Listingrequest = () => {
-  const [selectedOption, setSelectedOption] = useState("");
+  const navigate = useNavigate();
+  const [selectedProduct, setSelectedProduct] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("To-Let");
+  const [listingData, setListingData] = useState([]);
+  // const [selectedOptiona, setSelectedOptiona] = useState(null);
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://raddaf-be.onrender.com/listing-property/get-listings');
+        const { data } = response;
+
+        let filteredListings = [];
+        if (selectedOption === "For Sale") {
+          filteredListings = data.filter(item => item.purpose === 'Sale');
+        } else if (selectedOption === "To-Let") {
+          filteredListings = data.filter(item => item.purpose === 'Tolet');
+        }
+
+        setListingData(filteredListings);
+        console.log(filteredListings)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [selectedOption]);
+
+  const handleProduct = (item) => {
+    setSelectedProduct(item);
+    navigate('/viewdocuments', { state: { selectedProduct: item } });
   };
 
-  let a
+  const handleSelect = (option) => {
+    // setSelectedOptiona(option);
+    setSelectedOption(option);
+  };
+
+  const options = [
+    "For Sale",
+    "To-Let"
+  ];
+
   const renderListings = () => {
-    
-    if (selectedOption === "Forsale") {
-        a=samplelistinreq
-    }
-    else{
-        a=toletlistinreq
-    }
-      return a.map((data) => (
-        <div key={data.id} className='mains'>
-          <div className='profile-ent'>
-            <div className='incont'>
-              <div className='nn'>
-                <h1 className='headi'>Name</h1>
-                <h3>{data.name}</h3>
-              </div>
-              <div className='nn'>
-                <h1>Address</h1>
-                <h3>{data.address}</h3>
-              </div>
-              <div className='nn'>
-                <h1>Pincode</h1>
-                <h3>{data.pincode}</h3>
-              </div>
-              <div className='nns'>
-                <h1>Contact Details</h1>
-                <h3>{data.contactdetails.phn}<br />
-                  {data.contactdetails.email}</h3>
-              </div>
-              <div className='nn'>
-                <h1>View Documents</h1>
-                <Link className='li' to='/viewdocuments'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="#955108" class="bi ii bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                  <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                </svg>
-                </Link>
+    return listingData.map((data) => {
+      const timestamp = data.scheduleDateTime;
+      const dateOnly = timestamp ? timestamp.substring(0, 10) : null;
+
+      return (
+        <div key={data.id}>
+          <div style={{ margin: '50px' }}>
+            <p style={{ margin: '20px' }}>{dateOnly}</p>
+            <div className='hhh' style={{ display: 'flex', overflow:"auto" }}>
+              <div
+                style={{
+                  backgroundColor: '#FFD2B1',
+                  borderStyle: 'solid',
+                  borderColor: '#955108',
+                  borderTop: 'none',
+                  borderWidth: '6px',
+                  borderBottom: 'none',
+                  borderRight: 'none',
+                  padding: '20px',
+                  marginLeft: '20px',
+                  width: '100%',
+                }}
+              >
+                <table>
+                  <thead style={{marginBottom:"px"}}>
+                    <tr style={{borderBottom:"0.1px",borderColor:"#955108",borderStyle:"groove",borderTop:"none",borderLeft:"none",borderRight:"none"}}>
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>Pin code</th>
+                      <th>contact Details</th>
+                      <th>View Documents</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="hove">
+                      <td>{data.contactDetails.name}</td>
+                      <td>{data.place}</td>
+                      <td>{data.place}</td>
+                      <td>{data.contactDetails.phoneNumber}<br/>{data.contactDetails.email}</td>
+                      <td>
+                        <div style={{textAlign:"center"}} className='nn'>
+                          <svg xmlns="http://www.w3.org/2000/svg" onClick={() => handleProduct(data)} width="40" style={{paddingRight:"60px"}} height="40" fill="#955108" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                          </svg>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
-      ));
-    }
-//  else if (selectedOption === "To-let") {
-//       return toletlistinreq.map((data) => (
-//         <div key={data.id} className='mains'>
-//           <div className='profile-ent'>
-//             <div className='incont'>
-//               <div className='nn'>
-//                 <h1 className='headi'>Name</h1>
-//                 <h3>{data.name}</h3>
-//               </div>
-//               <div className='nn'>
-//                 <h1>Address</h1>
-//                 <h3>{data.address}</h3>
-//               </div>
-//               <div className='nn'>
-//                 <h1>Pincode</h1>
-//                 <h3>{data.pincode}</h3>
-//               </div>
-//               <div className='nns'>
-//                 <h1>Contact Details</h1>
-//                 <h3>{data.contactdetails.phn}<br />
-//                   {data.contactdetails.email}</h3>
-//               </div>
-//               <div className='nn'>
-//                 <h1>View Documents</h1>
-//                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi ii bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-//                   <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-//                 </svg>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       ));
-//     } else {
-//       return null; // Default case or when no option is selected
-//     }
-//   };
+      )
+    });
+  };
 
   return (
-    <div className='main'>
-      <div className='list-head'>
-        <img alt='back-arrow' />
+    <div>
+      <div className='list-hea'>
+        <img src={backarrow} alt='back-arrow' onClick={() => navigate('/')} />
         <h1>Listing Request</h1>
         <div>
-          <FormControl sx={{ m: 1, minWidth: 250 }}>
-            <Select
-              value={selectedOption}
-              onChange={handleOptionChange}
-              placeholder='To-Let'
-              // renderValue="To-Let"
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={{
-                backgroundColor: '#9E5C08',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: '#9E5C08',
-                },
-                '&:focus': {
-                  backgroundColor: '#9E5C08',
-                  borderColor: 'blue', // Change border color on focus
-                },
-                '& .MuiSelect-icon': {
-                  color: 'white',
-                },
-              }}
-            >
-              {/* <MenuItem value="">Select Option</MenuItem> */}
-              <MenuItem value="Forsale">For Sale</MenuItem>
-              <MenuItem value="To-let" placeholder="Tolet">To Let</MenuItem>
-            </Select>
-          </FormControl>
+          <select
+            value={selectedOption}
+            onChange={(e) => handleSelect(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}>
+            {options.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
-      <div className="messa">
-        {renderListings()}
-      </div>
+      <div>{renderListings()}</div>
     </div>
   );
-}
+};
 
 export default Listingrequest;

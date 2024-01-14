@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
+import Swal from 'sweetalert2';
+import '../signup/signup.css';
+import { useNavigate } from 'react-router-dom';
 
-import '../signup/signup.css'
 const Signup = () => {
+  const navigate = useNavigate();
+  const [warning, setWarning] = useState('');
   const [formData, setFormData] = useState({
     Username: '',
     email: '',
@@ -20,12 +24,27 @@ const Signup = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
+
       reader.onload = () => {
-        setFormData({ ...formData, profileImage: reader.result });
+        // Check if the file size is less than 30KB
+        if (file.size <= 30 * 1024) {
+          setFormData({ ...formData, profileImage: reader.result });
+          setWarning('');
+        } else {
+          // Display a warning message if the file size exceeds 30KB
+          setWarning('The selected image exceeds the recommended size of 30KB. Uploading large images may affect performance.');
+          Swal.fire({
+            icon: 'warning',
+            title: 'Image Size Warning',
+            text: 'The selected image exceeds the recommended size of 30KB. Uploading large images may affect performance.',
+          });
+        }
       };
+
+      reader.readAsDataURL(file);
     }
   };
 
@@ -52,86 +71,102 @@ const Signup = () => {
 
       if (response.ok) {
         console.log('Signup successful:', data);
+        navigate('/login');
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Successful signup',
+          text: 'Signup has been successful',
+        });
       } else {
-        console.error('Signup failed:', data.error);
+        console.error('Signup failed:', response.status, data);
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to signup',
+          text: `${response.status} ${data}`,
+        });
       }
     } catch (error) {
       console.error('Error during signup:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to signup',
+        text: "failed to signup",
+      });
     }
-    console.log(formData, "formdata");
+
+    console.log('Form data:', formData); // Log the form data for debugging
   };
 
   return (
     <div className='main-formdiv'>
-      <form className="form-field1" onSubmit={handleSubmit}>
+      <form className='form-field1' onSubmit={handleSubmit}>
         <TextField
-          type="text"
-          name="Username"
-          className="inputs"
-          placeholder="Username"
+          type='text'
+          name='Username'
+          className='inputs'
+          placeholder='Username'
           value={formData.Username}
           onChange={handleInputChange}
         />
 
         <TextField
-          type="email"
-          name="email"
-          className="inputs"
-          placeholder="Email"
+          type='email'
+          name='email'
+          className='inputs'
+          placeholder='Email'
           value={formData.email}
           onChange={handleInputChange}
         />
 
         <TextField
-          type="password"
-          name="password"
-          className="inputs"
-          placeholder="Password"
+          type='password'
+          name='password'
+          className='inputs'
+          placeholder='Password'
           value={formData.password}
           onChange={handleInputChange}
         />
 
         <TextField
-          type="text"
-          name="Fullname"
-          className="inputs"
-          placeholder="Fullname"
+          type='text'
+          name='Fullname'
+          className='inputs'
+          placeholder='Fullname'
           value={formData.Fullname}
           onChange={handleInputChange}
         />
 
         <TextField
-          type="text"
-          name="title"
-          className="inputs"
-          placeholder="Title"
+          type='text'
+          name='title'
+          className='inputs'
+          placeholder='Title'
           value={formData.title}
           onChange={handleInputChange}
         />
 
         <TextField
-          type="text"
-          name="zoneNumber"
-          className="inputs"
-          placeholder="Zone Number"
+          type='text'
+          name='zoneNumber'
+          className='inputs'
+          placeholder='Zone Number'
           value={formData.zoneNumber}
           onChange={handleInputChange}
         />
 
-            <input
-          type="file"
-          name="profileImage"
-          className="inputs"
-          accept="image/*"
+        <input
+          type='file'
+          name='profileImage'
+          className='inputs'
+          accept='image/*'
           onChange={handleFileChange}
         />
+        <p style={{ color: 'red' }}>{warning}</p>
 
-
-        <Button variant="contained" className="buttonsmy" type="submit">
+        <Button variant='contained' className='buttonsmy' type='submit'>
           Sign Up
         </Button>
-
-       
       </form>
     </div>
   );
