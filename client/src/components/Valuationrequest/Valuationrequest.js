@@ -148,10 +148,10 @@ const Valuationrequest = () => {
     return listingData.map((data) => (
       <div key={data.id}>
         <div style={{ margin: "50px" }}>
-          <p style={{margin:"20px"}}>need to update date here</p>
+          <p style={{margin:"20px"}}>{data.createdOn}</p>
           <div style={{display:'flex'}}>
-            <div style={{backgroundColor:"#FFD2B1",borderStyle:"solid",borderColor:"#955108",borderTop:"none",borderWidth:"6px",borderBottom:"none",borderRight:"none",padding:"20px",marginLeft:"20px",width:"80%"}}>
-               <div style={{display:"flex",justifyContent:"space-between"}}>
+            <div className='hhh' style={{backgroundColor:"#FFD2B1",borderStyle:"solid",borderColor:"#955108",borderTop:"none",borderWidth:"6px",borderBottom:"none",borderRight:"none",padding:"20px",marginLeft:"20px",width:"80%"}}>
+               {/* <div style={{display:"flex",justifyContent:"space-between"}}>
                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",width:"80%"}}>
                   <div>
                     <p>name</p>
@@ -181,12 +181,39 @@ const Valuationrequest = () => {
                 <div>
                   <p>{data.propertyAction}</p>
                 </div>
-              </div>
+              </div> */}
+              <table>
+                            <thead style={{marginBottom:"px"}}>
+                                <tr style={{borderBottom:"0.1%",borderColor:"#955108",borderStyle:"groove",borderTop:"none",borderLeft:"none",borderRight:"none"}}>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Pin code</th>
+                                    <th>Property</th>
+                                    {/* <th></th> */}
+                                </tr>
+                            
+                            </thead>
+                            <tbody>
+                                <tr class="hove">
+                                    <td>{data.username}</td>
+                                    <td>{data.address}</td>
+                                    <td>{data.postCode}</td>
+                                    <td>{data.propertyAction}</td>
+                                    {/* <td> */}
+                                        {/* <div style={{textAlign:"center"}} className='nn'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" onClick={() => handleProduct(data)} width="40" style={{paddingRight:"60px"}} height="40" fill="#955108" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                            </svg>
+                                        </div> */}
+                                    {/* </td> */}
+                                </tr>
+                            </tbody>
+                        </table>
               {/* <div style={{}}>
                 <button style={{ padding: "50px" }}>Valuate </button>
               </div> */}
             </div>
-            <div style={{}}>
+            <div className='hhh'>
                 <button style={{ padding: "75px",backgroundColor:"#955108",border:"none",color:"white",fontSize:"20px" }}>Valuate </button>
               </div>
           </div>
@@ -199,7 +226,7 @@ const Valuationrequest = () => {
     <div>
       <div className='list-hea'>
         <img src={backarrow} alt='back-arrow' onClick={() => { navigate('/') }} />
-        <h1>Listing Request</h1>
+        <h1>Valuation Request</h1>
       </div>
       <div>
         {nnn()}

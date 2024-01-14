@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import "./viewdocuments.css";
-import samplelistinreq from "../ListingRequest/samplelistingrequest.js";
-import toletlistinreq from '../ListingRequest/tolet.js';
-import SingleBedIcon from '@mui/icons-material/SingleBed';
-import toiletlogo from '../Images/toilet-logo.png'
-import BathtubIcon from '@mui/icons-material/Bathtub';
 import { useNavigate } from 'react-router-dom';
 import backarrow from '../Images/backarrow.png'
-import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled';
-import data from "./docdata.js"
-import HotelOutlinedIcon from '@mui/icons-material/HotelOutlined';
 import { useLocation } from 'react-router-dom';
-
+import bedroomlogo from '../Images/bedsymbol.png';
+import toilet from '../Images/toilet.png';
+import washroom from '../Images/washroom.png';
+import parking from '../Images/car.png';
+import proimg from "../Images/profile.png"
+import axios from 'axios';
 
 
 const Listingrequest = () => {
   const navigate = useNavigate()
-  const [selectedOption, setSelectedOption] = useState("");
-  const userData = data[0]; 
   const location = useLocation();
   const selectedProduct = location.state ? location.state.selectedProduct : null;
 
@@ -28,13 +20,55 @@ const Listingrequest = () => {
   const timestamp = selectedProduct.scheduleDateTime;
   const dateOnly = timestamp ? timestamp.substring(0, 10) : null;
 
-  const renderKeyValue = (key, value) => (
-    <div key={key} style={{ display: 'flex', flexDirection: "row", justifyContent: "space-between" }}>
-      <div>{key}</div>
-      <div>:</div>
-      <div>{value}</div>
-    </div>
-  );
+  // const listingId = {selectedProduct}; // Replace with your actual listingId
+  const [listingIsVerified, setListingIsVerified] = useState(false);
+  const handleApprove = async () => {
+    // try {
+    //   // Make a PATCH request to update the isVerified field
+    //   // const response = await axios.patch(`/listing-property/get-listings/${selectedProduct._id}`);
+    //   // console.log(response.selectedProduct._id)
+
+    //   // // Assuming the backend responds with the updated listing data
+    //   // const updatedListing = response.data;
+
+    //   // // Update the local state or re-fetch the listing data
+    //   // setListingIsVerified(updatedListing.isVerified);
+    //   const response = await axios.patch(`https://raddaf-be.onrender.com/listing-property/get-listings/${selectedProduct._id}`, {
+    //     isVerified: true,
+    //   });
+
+    //   // Assuming the backend responds with the updated listing data
+    //   const updatedListing = response.data;
+
+    //   // Update the local state or re-fetch the listing data
+    //   setListingIsVerified(updatedListing.isVerified);
+    // }
+    try {
+      const response = await fetch(`https://raddaf-be.onrender.com/listing-property/get-listings/${selectedProduct._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          isVerified: true,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+
+      // Assuming the backend responds with the updated listing data
+      const updatedListing = await response.json();
+
+      // Update the local state or re-fetch the listing data
+      setListingIsVerified(updatedListing.isVerified);
+    } 
+    catch (error) {
+      console.error('Error approving listing:', error);
+      // Handle error, e.g., show an error message to the user
+    }
+  };
 
   const downloadPropertyTitleDeals = () => {
     const content = selectedProduct.propertyDocuments;
@@ -93,19 +127,16 @@ const Listingrequest = () => {
 
   const [selectedOptiona, setSelectedOptiona] = useState(null);
 
-  // Options for the dropdown
   const options = [
     "For Sale",
     "To-Let"
   ];
 
-  // Event handler for option selection
   const handleSelect = (optionb) => {
     setSelectedOptiona(optionb);
   };
   const [selectedOptionb, setSelectedOptionb] = useState(null);
 
-  // Options for the dropdown
   const optionb = [
     "1",
     "1.5",
@@ -114,59 +145,11 @@ const Listingrequest = () => {
     "3"
   ];
 
-  // Event handler for option selection
   const handleSelectb = (option) => {
     setSelectedOptionb(option);
   };
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-  // setFormValues((prevState) => ({
-  //           ...prevState,
-  //           [name]: inputValue,
-  //       }));
-
-  let a
-  const renderListings = () => {
-    
-    if (selectedOption === "Forsale") {
-        a=samplelistinreq
-    }
-    else{
-        a=toletlistinreq
-    }
-      return selectedProduct.map((data) => (
-        <div key={data.id} className='mains'>
-          <div className=''>
-            <div className=''>
-
-              <div className='nn'>
-                <h1 className='headi'>Name</h1>
-                <h3>{data.contactDetails.name}</h3>
-              </div>
-              <div className='nn'>
-                <h1>Address</h1>
-                <h3>{data.address}</h3>
-              </div>
-              <div className='nn'>
-                <h1>Pincode</h1>
-                <h3>{data.pincode}</h3>
-              </div>
-              <div className='nns'>
-                <h1>Contact Details</h1>
-                <h3>{data.contactdetails.phn}<br />
-                  {data.contactdetails.email}</h3>
-              </div>
-              <div className='nn'>
-                <h1>View Documents</h1>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      ));
-    }
+  
 
   return (
     <div className='main'>
@@ -174,50 +157,17 @@ const Listingrequest = () => {
         <img alt='back-arrow' src={backarrow} onClick={()=>{navigate('/')}} />
         <h1>Listing Request</h1>
         <div>
-          {/* <FormControl sx={{ m: 1, minWidth: 250 }}> */}
-            
             <select
         value={selectedOptiona}
-        onChange={(e) => handleSelect(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}
-      >
-        {/* <option value="">My Properties</option> */}
+        onChange={(e) => handleSelect(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
           </option>
         ))}
             </select>
-          {/* </FormControl> */}
         </div>
         <div className='seconddrop'>
-        {/* <FormControl sx={{ m: 1, minWidth: 250 }}>
-            <Select
-              value={selectedOption}
-              onChange={handleOptionChange}
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={{
-                backgroundColor: '#9E5C08',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: '#9E5C08',
-                },
-                '&:focus': {
-                  backgroundColor: '#9E5C08',
-                  borderColor: 'blue', // Change border color on focus
-                },
-                '& .MuiSelect-icon': {
-                  color: 'white',
-                },
-              }}
-            >
-              <MenuItem value="" disabled>Generate Invoice</MenuItem>
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="1.5">1.5</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-              <MenuItem value="2.5">2.5</MenuItem>
-              <MenuItem value="3">3</MenuItem>
-            </Select>
-          </FormControl> */}
           <select
         value={selectedOptionb}
         onChange={(e) => handleSelectb(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}
@@ -232,27 +182,10 @@ const Listingrequest = () => {
         </div>
       </div>
       <div style={{display:"flex"}}>
-        {/* {renderListings()} */}
+        
         <div>
-          <img src="" alt='userimage'/>
-          {/* {Object.entries(userData).map(([key, value]) => (
-        <div key={key} style={{ display: 'flex', flexDirection: "row", justifyContent: "space-between" }}>
-          <div>{key}</div>
-          <div>:</div>
-          <div>{value}</div>
-        </div>
-      ))} */}
-      {/* {Object.entries(userData).map(([key, value]) => {
-        if (typeof value === 'object') {
-          return Object.entries(value).map(([nestedKey, nestedValue]) =>
-            renderKeyValue(`${key}.${nestedKey}`, nestedValue)
-          );
-        } else {
-          return renderKeyValue(key, value);
-        }
-      })} */}
-      {/* <p>Address : {userData.Address}</p>
-      <p>Pincode : {userData.Pincode}</p> */}
+          
+          <img style={{width:"100%"}} src={proimg} alt='userimage'/>
 
           <div style={{display:'flex'}}>
             <div>Name </div>
@@ -279,12 +212,6 @@ const Listingrequest = () => {
             <div style={{paddingLeft:"30px",paddingRight:"10px"}}>:</div>
             <div>{selectedProduct.contactDetails.email}</div>
           </div>
-          
-          {/* <p>Address : No48</p>
-          <p>Pincode : 600234</p>
-          <p>COntact Details</p>
-          <p>phone : 987654321</p>
-          <p>Mail ID: mmm@gmail.com</p> */}
         </div>
         <hr/>
         
@@ -356,30 +283,13 @@ const Listingrequest = () => {
                           <p className='bpara'>{selectedProduct.propertyDescription}</p>
                         </div>
                           <div className='rooms-info' style={{paddingTop:"20px",paddingLeft:"10px"}}>
-                  <h1 >Property Details</h1>
-                  <div className='rooms-info-sub' style={{marginTop:"20px"}}>
-                      <div >
-                      <SingleBedIcon  sx={{fontSize:'40px'}}/>    
-                      <h1>{selectedProduct.noOfBedrooms}           </h1>
-                      </div>
-                      <div>
-                      <BathtubIcon  sx={{fontSize:'40px'}}/> 
-                      <h1>   
-                      {selectedProduct.noOfBathrooms}     
-                      </h1>        
-                      </div>
-                      <div>
-                      <img src={toiletlogo} alt='toilet' style={{width:'40px'}}/>    
-                      <h1>{selectedProduct.noOfToilets}</h1>            
-                      </div>
-                      <div>
-                      <DirectionsCarFilledIcon sx={{fontSize:'40px'}}/>   
-                      <h1>{selectedProduct.parkingCapacity}</h1>            
-                      </div>
-                  </div>
-                
-
                           </div>
+                          <div style={{marginBottom:"20px",marginTop:"10px"}} className='rooms-detai'>
+                <div className='noofbedrooms'><img src={bedroomlogo} alt='bedroomlogo'/>  {selectedProduct.noOfBedrooms}</div>
+                <div className='bahrooms'><img src={washroom} alt='washroom'/>  {selectedProduct.noOfBathrooms}</div>
+                <div className='toilets'><img src={toilet} alt='toilet'/>  {selectedProduct.noOfToilets}</div>
+                <div className='parking'><img src={parking} alt='parking'/>  {selectedProduct.parkingCapacity}</div>
+              </div>
                           
                     </div>
                           <div style={{display:"flex",}}>
@@ -396,9 +306,8 @@ const Listingrequest = () => {
                                       </div>
                             <div style={{backgroundColor:"#FFECDE", padding:"10px"}}><p>{dateOnly}</p></div>
                           </div>
-                          {/* <button style={{padding:"20px",borderRadius:"10px",fontSize:"20px",fontWeight:"bold",backgroundColor:"#9E5C08",border:"none",color:"white",width:"10%",marginRight:"20px"}}>Approve</button>
-                          <button style={{padding:"20px",borderRadius:"10px",fontSize:"20px",fontWeight:"bold",border:"none",color:"#9E5C08",width:"10%",marginRight:"20px"}}>Decline</button> */}
-                          <button style={{width:"10%",height:"7%",backgroundColor:"#9E5C08",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",border:"none",color:"white",marginRight:"10px"}}>Approve</button>
+                          
+                          <button onClick={handleApprove} style={{width:"10%",height:"7%",backgroundColor:"#9E5C08",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",border:"none",color:"white",marginRight:"10px"}}>Approve</button>
                           <button style={{width:"10%",height:"7%",backgroundColor:"white",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",borderColor:"#9E5C08",borderStyle:"solid",color:"#9E5C08",marginRight:"10px"}}>Decline</button>
                     </div>                    
       </div>
