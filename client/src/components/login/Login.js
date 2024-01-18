@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TextField, Checkbox, FormControlLabel, Button } from "@mui/material";
 import "../login/login.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Data } from "../../Total";
 
 const Login = () => {
+
+  const {name}=useContext(Data)
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -41,7 +45,7 @@ const Login = () => {
         console.log("Login successful:", data);
         Swal.fire({
           icon: "success",
-          title: "Successful Login",
+          title: "Login Successful ",
           text: "Login has been successful",
         });
 
@@ -49,7 +53,7 @@ const Login = () => {
         sessionStorage.setItem("userData", JSON.stringify(data.userData));
 
         // Handle successful login, e.g., redirect to another page
-        navigate("/dashboard");
+        navigate("/");
       } else {
         console.error("Login failed:", data.error);
         // Handle failed login, e.g., display an error message
@@ -74,7 +78,7 @@ const Login = () => {
   return (
     <div className="main-divs">
       <form className="form-contain" onSubmit={handleSubmit}>
-        <h2>Login Form</h2>
+        <h2>Agent Login Form</h2>
         <TextField
           variant="filled"
           type="email"
@@ -115,8 +119,10 @@ const Login = () => {
           <p style={{ cursor: "pointer" }} onClick={() => navigate("/signup")}>
             Register Now
           </p>
+         
         </div>
       </form>
+      
     </div>
   );
 };

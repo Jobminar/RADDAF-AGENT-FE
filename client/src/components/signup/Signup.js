@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { TextField, Button, CircularProgress } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { TextField, CircularProgress } from '@mui/material';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import '../signup/signup.css'
+import { Data } from '../../Total';
 const Signup = () => {
+  const {arr}=useContext(Data)
   const navigate = useNavigate();
   const [warning, setWarning] = useState('');
   const [loading, setLoading] = useState(false);
@@ -104,6 +106,7 @@ const Signup = () => {
 
   return (
     <div className='main-formdiv'>
+      
       <form className='form-field1' onSubmit={handleSubmit}>
         <TextField
           type='text'
@@ -168,14 +171,14 @@ const Signup = () => {
         />
         <p style={{ color: 'red' }}>{warning}</p>
 
-        <Button
+        <button
           variant='contained'
           className='button-agent'
           type='submit'
           disabled={loading}
         >
-          {loading && <CircularProgress size={24} style={{ marginRight: 8 }} />} Sign Up
-        </Button>
+          {loading && <CircularProgress size={24} style={{ marginRight: 8 ,color:'white'}} />} Sign Up
+        </button>
       </form>
     </div>
   );
