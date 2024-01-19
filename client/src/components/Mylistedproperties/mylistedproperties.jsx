@@ -21,7 +21,7 @@ const Mylistedproperties = () => {
     const [selectedValue, setSelectedValue] = useState('Tolet'); 
 
     const handleChange = (event) => {
-      setselectedValue(event.target.value);
+      setSelectedValue(event.target.value);
     
     };
     // fetching
