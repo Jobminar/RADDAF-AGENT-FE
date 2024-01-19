@@ -18,7 +18,7 @@ import parking from '../Images/car.png';
 const Myrentalrequests = () => {
     const navigate = useNavigate()
     // tolet 0r forsale
-    const [selectedValue, setSelectedValue] = useState('Tolet'); 
+    const [selectedValue, setSelectedValue] = useState('Commercial'); 
 
     const handleChange = (event) => {
       setSelectedValue(event.target.value);
@@ -95,8 +95,8 @@ const Myrentalrequests = () => {
                         },
                       }}
                 >
-                    <MenuItem value={'Tolet'}>Tolet</MenuItem>
-                    <MenuItem value={'Forsale'}>Forsale</MenuItem>
+                    <MenuItem value={'Commercial'}>Commercial</MenuItem>
+                    <MenuItem value={'Residential'}>Residential</MenuItem>
                 
                 </Select>
                 </FormControl>

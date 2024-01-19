@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ImageUploading from 'react-images-uploading';
 import './Imageupload.css';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 const Imageupload = () => {
+  const navigate  = useNavigate()
+
   const [images, setImages] = React.useState([]);
   const maxNumber = 4;
 
@@ -10,6 +13,22 @@ const Imageupload = () => {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
+  };
+
+ 
+
+  useEffect(() => {
+    if (images.length === 1) {
+      handleProperty(images[0]); // Call handleProperty when a single image is uploaded
+    }
+  }, [images]);
+
+  
+// datasend
+  const handleProperty = (item) => {
+    setImages(item);
+    navigate('/listaproperty', { state: { images: item } });
+    console.log(item,'data')
   };
 
   return (
