@@ -1,9 +1,11 @@
 // import upload from '../Images/upload-image.jpeg'
 import backarrow from "../Images/backarrow.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Lista-property.css";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 // mui
 
@@ -28,10 +30,13 @@ import uploadimage from "../Images/uploadimagesmall.png";
 import Imageupload from "../Imageupload/Imageupload";
 
 const Listaproperty = () => {
+
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState(null);
-  const[selectedepcvalue,setselectedepcvalue]=useState('EPC VALUE')
+
+  const [selectedOption, setSelectedOption] = useState('To-let');
+  const[selectedepcvalue,setselectedepcvalue]=useState('EPC-VALUE')
   const [formValues, setFormValues] = useState({
+    images:[],
     propertyDescription: "",
     propertytype: "",
     selectsaleorrent: "",
@@ -70,21 +75,29 @@ const Listaproperty = () => {
     FloorPlan: null,
     place:'',
     price:'',
-    pincode:'',
+    pinCode:'',
     epcvalue:'',
+    streetParking: false,
+    rearGarden: false,
+    gasCentralHeating: false,
+    doubleGlazedWindows: false,
 
   });
+  
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value ,checked, type} = e.target;
     setFormValues((prevState) => ({
       ...prevState,
       [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
-    if (name === "selectValue") {
+    if (name === "selectsaleorrent") {
       setSelectedOption(value);
     }
   };
+
+
 
   const handleContactDetailsChange = (e) => {
     const { name, value } = e.target;
@@ -121,15 +134,16 @@ const Listaproperty = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    const imageURL =
-      "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg";
+
     // Basic form fields
     formData.append("purpose", formValues.selectsaleorrent);
     formData.append("propertyType", formValues.propertytype);
 
     // Images
-    formData.append("images", imageURL); // Assuming you have an input for image URL
-
+    // formData.append("images", imageURL); // Assuming you have an input for image URL
+    for (let i = 0; i < formValues.images.length; i++) {
+      formData.append("images", formValues.images[i]);
+    }
     // Property documents
     formData.append(
       "propertyDocuments",
@@ -219,8 +233,8 @@ const Listaproperty = () => {
       formValues.price
     );
     formData.append(
-      "pincode",
-      formValues.pincode
+      "pinCode",
+      formValues.pinCode
     );
     formData.append(
       "epcvalue",
@@ -253,7 +267,8 @@ const Listaproperty = () => {
        formValues.busStationName
        );
 
-    // Schedule date time
+// Schedule date time
+
     formData.append(
       "scheduleDateTime", 
       formValues.propertyscheduling
@@ -261,7 +276,7 @@ const Listaproperty = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/listing-property/create",
+        "https://raddaf-be.onrender.com/listing-property/create",
         {
           method: "POST",
           body: formData,
@@ -281,6 +296,8 @@ const Listaproperty = () => {
     }
   };
 
+  // handle skip function
+
   const handleSkip = () => {
     if (
       !formValues.contactDetails.fullname ||
@@ -292,6 +309,8 @@ const Listaproperty = () => {
     } else {
     }
   };
+
+  // file upload section
 
   const fileInputTitleDealsRef = useRef(null);
   const fileInputFittingsContentRef = useRef(null);
@@ -331,6 +350,39 @@ const Listaproperty = () => {
     setFormValues(updatedFormValues);
   };
 
+// images change
+  const [selectedimages, setSelectedimages] = useState([]);
+  const maxFiles = 4; 
+  const allowedExtensions = ['.png', '.jpg', '.jpeg']; // Set allowed file extensions
+
+  const handleimagechange = (event) => {
+    const files = event.target.files;
+    const selectedFilesArray = Array.from(files);
+
+    // Validate the number of selected files
+    if (selectedFilesArray.length > maxFiles) {
+      alert("Please select up to ${maxFiles} files.");
+      event.target.value = ''; // Clear the file input to prevent selecting too many files
+      return;
+    }
+
+    // Validate each file's extension
+    const invalidFiles = selectedFilesArray.filter(file => {
+      const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+      return !allowedExtensions.includes(fileExtension);
+    });
+
+    if (invalidFiles.length > 0) {
+      alert("Invalid file type. Please select only PNG or JPEG files.");
+      event.target.value = ''; // Clear the file input to prevent selecting invalid files
+      return;
+    }
+
+    // Update the selected files state
+    setSelectedimages(selectedFilesArray);
+    console.log(selectedimages)
+  };
+
   return (
     <div className="Lista-property-con">
       {/* list head */}
@@ -344,48 +396,41 @@ const Listaproperty = () => {
         />
         <h1>List a Property</h1>
         <div>
-          <FormControl sx={{ m: 1, minWidth: 250 }}>
-            <Select
-              // displayEmpty
-              inputProps={{ "aria-label": "Without label" }}
-              sx={{
+        <FormControl sx={{ m: 1, minWidth: 250 }}>
+          <Select
+            inputProps={{ "aria-label": "Without label" }}
+            sx={{
+              backgroundColor: "#9E5C08",
+              color: "white",
+              "&:hover": {
                 backgroundColor: "#9E5C08",
+              },
+              "&:focus": {
+                backgroundColor: "#9E5C08",
+                borderColor: "blue",
+              },
+              "& .MuiSelect-icon": {
                 color: "white",
-                "&:hover": {
-                  backgroundColor: "#9E5C08",
-                },
-                "&:focus": {
-                  backgroundColor: "#9E5C08",
-                  borderColor: "blue", // Change border color on focus
-                },
-                "& .MuiSelect-icon": {
-                  color: "white",
-                },
-              }}
-              name="selectsaleorrent"
-              value={formValues.selectsaleorrent}
-              onChange={handleInputChange}
-            >
-              <MenuItem
-                value="Forsale"
-                onClick={() => setSelectedOption("sale")}
-              >
-                Forsale
-              </MenuItem>
-              <MenuItem
-                value="To-let"
-                onClick={() => setSelectedOption("rent")}
-              >
-                To-let
-              </MenuItem>
-            </Select>
-          </FormControl>
+              },
+            }}
+            name="selectsaleorrent"
+            value={selectedOption}
+            onChange={handleInputChange}
+          >
+            <MenuItem value="Forsale" onClick={() => setSelectedOption("sale")}>
+              Forsale
+            </MenuItem>
+            <MenuItem value="To-let" onClick={() => setSelectedOption("rent")}>
+              To-let
+            </MenuItem>
+          </Select>
+    </FormControl>
         </div>
       </div>
       {/* filter section */}
       <div className="filter-section">
         <div className="for-sale-filter">
-          {selectedOption === "sale" && (
+          {selectedOption === "Forsale" && (
             <div className="commercial-residential">
               <div className="custom-radio">
                 <input
@@ -413,7 +458,7 @@ const Listaproperty = () => {
           )}
         </div>
         <div className="to-let-filter">
-          {selectedOption === "rent" && (
+          {selectedOption === "To-let" && (
             <div className="to-let-filter-sub">
               {/* Commercial / residential */}
 
@@ -501,7 +546,19 @@ const Listaproperty = () => {
       <div className="image-document">
         <div className="image-upload">
           <div className="image-upload-sub">
-            <Imageupload />
+            {/* <Imageupload /> */}
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="fileInput">Select up to 4 files (PNG or JPEG only):</label>
+              <input
+                type="file"
+                id="fileInput"
+                name="files"
+                multiple
+                accept=".png, .jpg, .jpeg"
+                onChange={handleimagechange}
+              />
+              
+            </form>
           </div>
         </div>
         {/* Hidden file input element */}
@@ -711,8 +768,8 @@ const Listaproperty = () => {
           />
         </div>
         {/* property dimensions */}
-        <div className="property-dimensions">
-          <h1>Property Dimensions</h1>
+        <div className="property-dimensions-lw">
+          <h1>Property dimensions</h1>
           <div className="property-dimensions-main">
             <div className="property-dimensions-sub">
               Reception
@@ -1051,7 +1108,7 @@ const Listaproperty = () => {
       {/* place & price */}
       <div className="place-price">
         <div className="place">
-          <p>Place :</p>
+          <p>Place </p>
           <TextField
               // label="With normal TextField"
               id="filled-start-adornment"
@@ -1078,7 +1135,7 @@ const Listaproperty = () => {
 
         </div>
         <div className="price">
-          <p>Price : </p>
+          <p>Price </p>
           <TextField
               id="outlined-multiline-flexible"
               // label="Multiline"
@@ -1115,17 +1172,18 @@ const Listaproperty = () => {
             />  
         </div>
         <div className="pincode">
-          <p>Pincode : </p>
+          <p>Pincode </p>
           <TextField
               id="outlined-multiline-flexible"
               multiline
-              maxRows={4}
+            
              
               sx={{
                 m: 0,
                 width: "20rem",
-                display: 'flex', 
+                display: 'flex',
                 alignItems: 'center',
+                flexDirection: 'column',
                 fontSize: '50',
                 "& .MuiFilledInput-root": {
                   background: "#FFECDE",
@@ -1140,8 +1198,8 @@ const Listaproperty = () => {
                 },
               }}
               variant="filled"
-              name="price"
-              value={formValues.pincode}
+              name="pinCode"
+              value={formValues.pinCode}
               onChange={handleInputChange}
             />  
         </div>
@@ -1149,10 +1207,42 @@ const Listaproperty = () => {
                  
       </div>
       <div className="checkboxes">
-         <FormControlLabel  control={<Checkbox />} label="Street Parking" className="Street-Parking"  style={{ color: '#9E5C08' ,fontSize:'30px'}}/>
-         <FormControlLabel  control={<Checkbox />} label="Rear Garden" className="Rear-Garden"  style={{ color: '#9E5C08' }}/>
-         <FormControlLabel  control={<Checkbox />} label="Gas Central Heating" className="Gas-Central-Heating"  style={{ color: '#9E5C08' }}/>
-         <FormControlLabel  control={<Checkbox />} label="Double-Glazed-Windows" className="Double-Glazed-Windows"  style={{ color: '#9E5C08' }}/>
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Street Parking"
+        className="Street-Parking"
+        style={{ color: '#9E5C08', fontSize: '30px' }}
+        name="streetParking"
+        checked={formValues.streetParking}
+        onChange={handleInputChange}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Rear Garden"
+        className="Rear-Garden"
+        style={{ color: '#9E5C08' }}
+        name="rearGarden"
+        checked={formValues.rearGarden}
+        onChange={handleInputChange}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Gas Central Heating"
+        className="Gas-Central-Heating"
+        style={{ color: '#9E5C08' }}
+        name="gasCentralHeating"
+        checked={formValues.gasCentralHeating}
+        onChange={handleInputChange}
+      />
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Double-Glazed-Windows"
+        className="Double-Glazed-Windows"
+        style={{ color: '#9E5C08' }}
+        name="doubleGlazedWindows"
+        checked={formValues.doubleGlazedWindows}
+        onChange={handleInputChange}
+      />
          <div className="epcvalue-head">
           <p>EPC Value:</p>
           <FormControl sx={{ m: 1, minWidth: 20 }}>
@@ -1173,7 +1263,7 @@ const Listaproperty = () => {
                 },
               }}
               name="epcvalue"
-              value={formValues.epcvalue}
+              value={selectedepcvalue}
               onChange={handleInputChange}
             >
               <MenuItem
@@ -1221,11 +1311,22 @@ const Listaproperty = () => {
             </Select>
           </FormControl>
         </div>
-        <h1>{formValues.epcvalue}</h1>
+       
       </div>
       <div className="buttons">
         <button onClick={handleSkip}>Skip</button>
         <button onClick={handleSubmit}>Submit</button>
+      </div>
+      <div>
+      <p>
+        {Object.entries(formValues).map(([key, value]) => (
+          <span key={key}>
+            <strong>{key}:</strong> {JSON.stringify(value)} <br />
+          </span>
+        ))}
+      </p>
+
+      {/* <img src={selectedimage} alt=" selected image"/> */}
       </div>
     </div>
   );

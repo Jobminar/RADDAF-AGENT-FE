@@ -18,7 +18,7 @@ import parking from '../Images/car.png';
 const Mylistedproperties = () => {
     const navigate = useNavigate()
     // tolet 0r forsale
-    // const [selectedValue, setSelectedValue] = useState('Tolet'); 
+    const [selectedValue, setSelectedValue] = useState('Tolet'); 
 
     const handleChange = (event) => {
       setSelectedValue(event.target.value);
