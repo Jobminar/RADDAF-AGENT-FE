@@ -5,16 +5,20 @@ import "./Header.css";
 import notification from "../Images/notification.png";
 import profile from "../Images/profile.png";
 
-const Header = () => {
+const Header = ({children} ) => {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    // Navigate to the /login route
+  
     navigate("/login");
   };
 
   return (
+    <div>
+    
     <div className="header-con">
+  
+      
       <div className="logo-agent">
         <img src={logo} alt="agentlogog" />
       </div>
@@ -30,6 +34,8 @@ const Header = () => {
           <p>Agent ID: 545943</p>
         </div>
       </div>
+     </div>
+     {children}
     </div>
   );
 };

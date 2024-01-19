@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { TextField, CircularProgress } from '@mui/material';
 import Swal from 'sweetalert2';
-import '../signup/signup.css';
 import { useNavigate } from 'react-router-dom';
-
+import '../signup/signup.css'
+import { Data } from '../../Total';
 const Signup = () => {
+  const {arr}=useContext(Data)
   const navigate = useNavigate();
   const [warning, setWarning] = useState('');
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     Username: '',
     email: '',
@@ -29,13 +31,13 @@ const Signup = () => {
       const reader = new FileReader();
 
       reader.onload = () => {
-        // Check if the file size is less than 30KB
         if (file.size <= 30 * 1024) {
           setFormData({ ...formData, profileImage: reader.result });
           setWarning('');
         } else {
-          // Display a warning message if the file size exceeds 30KB
-          setWarning('The selected image exceeds the recommended size of 30KB. Uploading large images may affect performance.');
+          setWarning(
+            'The selected image exceeds the recommended size of 30KB. Uploading large images may affect performance.'
+          );
           Swal.fire({
             icon: 'warning',
             title: 'Image Size Warning',
@@ -52,6 +54,8 @@ const Signup = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const formDataCopy = { ...formData, verified: false };
       const formDataToSend = new FormData();
 
@@ -83,7 +87,7 @@ const Signup = () => {
         Swal.fire({
           icon: 'error',
           title: 'Failed to signup',
-          text: `${response.status} ${data}`,
+          text: 'Signup failed. Please try again later.',
         });
       }
     } catch (error) {
@@ -91,15 +95,18 @@ const Signup = () => {
       Swal.fire({
         icon: 'error',
         title: 'Failed to signup',
-        text: "failed to signup",
+        text: 'An unexpected error occurred during signup. Please try again later.',
       });
+    } finally {
+      setLoading(false);
     }
 
-    console.log('Form data:', formData); // Log the form data for debugging
+    console.log('Form data:', formData);
   };
 
   return (
     <div className='main-formdiv'>
+      
       <form className='form-field1' onSubmit={handleSubmit}>
         <TextField
           type='text'
@@ -164,9 +171,14 @@ const Signup = () => {
         />
         <p style={{ color: 'red' }}>{warning}</p>
 
-        <Button variant='contained' className='buttonsmy' type='submit'>
-          Sign Up
-        </Button>
+        <button
+          variant='contained'
+          className='button-agent'
+          type='submit'
+          disabled={loading}
+        >
+          {loading && <CircularProgress size={24} style={{ marginRight: 8 ,color:'white'}} />} Sign Up
+        </button>
       </form>
     </div>
   );
