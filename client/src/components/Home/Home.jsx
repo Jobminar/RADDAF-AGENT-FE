@@ -98,7 +98,6 @@ const Homeagent=(()=>{
                             <p onClick={()=>{navigate('/listaproperty')}}>List a Properties</p>
                             <p onClick={()=>{navigate('/mylistedproperties')}}>My Listed Properties</p>
                             <p onClick={(()=>{navigate('/valuationrequest')})}>My Valuation Request</p>
-                            
                     </div>
                     <div className='my-links'>
                             <div className='my-sub-links'>
