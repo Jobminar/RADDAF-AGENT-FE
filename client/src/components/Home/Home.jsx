@@ -28,6 +28,7 @@ const Homeagent=(()=>{
     return(
         <>
             <div className="home-con">
+           
                 <div className="main-con">
                      <div className='my-links'>
                             <div className='my-sub-links'>
@@ -152,6 +153,7 @@ const Homeagent=(()=>{
                     })
                   }
                 </div>
+              
             </div>
         </>
     )
