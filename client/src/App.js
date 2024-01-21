@@ -1,12 +1,12 @@
 import React from 'react'
 import Total from './Total'
-import Route1 from './Route1'
+import Routing from './Routing'
 
 const App = () => {
   return (
     <div>
       <Total>
-        <Route1 />
+        <Routing />
       </Total>
     </div>
   )

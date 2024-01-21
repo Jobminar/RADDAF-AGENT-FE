@@ -18,11 +18,11 @@ import Mylandlords from "./components/MyLandLords/Mylandlords.js";
 import Valuationrequest from "./components/Valuationrequest/Valuationrequest.js"
 
 
-function Route1() {
+
+function Routing() {
   return (
    <>
         <BrowserRouter>   
-        {/*  */}
           <Routes>
             <Route path="*" element={<Header><Nopage /></Header>}/>
             <Route path="/" element={<Header><Homeagent /></Header>}/>
@@ -39,10 +39,11 @@ function Route1() {
             <Route path="/myzone" element={<Header><Myzone /></Header>} />
             <Route path="/mytenats" element={<Header><Mytenats /></Header>} />
             <Route path="/mylandlords" element={<Header><Mylandlords /></Header>}/>
+           
           </Routes>
         </BrowserRouter>
    </>
   );
 }
 
-export default Route1;
+export default Routing;
