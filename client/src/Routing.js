@@ -16,6 +16,7 @@ import Myzone from "./components/MyZone/Myzone.js";
 import Mytenats from "./components/MyTenants/Mytenats.js";
 import Mylandlords from "./components/MyLandLords/Mylandlords.js";
 import Valuationrequest from "./components/Valuationrequest/Valuationrequest.js"
+import ChatComponent from "./Sample.js";
 
 
 
@@ -39,6 +40,7 @@ function Routing() {
             <Route path="/myzone" element={<Header><Myzone /></Header>} />
             <Route path="/mytenats" element={<Header><Mytenats /></Header>} />
             <Route path="/mylandlords" element={<Header><Mylandlords /></Header>}/>
+            <Route path="/sample" element={<Header><ChatComponent /></Header>}/>
            
           </Routes>
         </BrowserRouter>
