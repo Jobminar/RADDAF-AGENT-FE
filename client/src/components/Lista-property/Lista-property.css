@@ -64,7 +64,7 @@
 /* lisyt tail */
 .list-tail{
     margin: 2rem 0rem;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: grid;
     grid-template-columns: 40% 35% 25%;
 }
@@ -503,7 +503,7 @@ color: #9E5C08;
 .place-price{
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 1rem 0rem;
     display: grid;
     grid-template-columns: 30% 30% 30% ;
@@ -512,13 +512,13 @@ color: #9E5C08;
 .place{
     display: flex;
     column-gap: 0.5rem;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     justify-content: center;
 }
 .price{
     display: flex;
     column-gap: 0.5rem;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     justify-content: center;
     align-items: center;
 
@@ -526,7 +526,7 @@ color: #9E5C08;
 .pincode{
     display: flex;
     column-gap: 0.5rem;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     justify-content: center;
 
 }
