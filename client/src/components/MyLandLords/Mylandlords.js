@@ -4,14 +4,16 @@ import logo from "./arrow.jpg";
 import { clients } from "../MyClinets/Data";
 import {  Card, Table } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from "react-router-dom";
+
 const Mylandlords = () => {
-   
+  const navigate=useNavigate()
   return (
     <div className="main-div-lords">
       <div className="first-div-lords">
         <div className="arrow-div3">
           <div>
-            <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" onClick={()=>navigate("/")}/>
           </div>
           <h2 style={{ color: "#955108" }}>My Landlords</h2>
         
@@ -28,7 +30,7 @@ const Mylandlords = () => {
                   <th>Contact Details</th>
                   <th>Property Address</th>
                   <th>ID</th>
-                  <th>View Documents</th>
+                  <th>View More</th>
                 </tr>
               </thead>
               <tbody>
