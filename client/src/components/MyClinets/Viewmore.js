@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./viewdocuments.css";
+import "./viewmore.css";
 import { useNavigate } from 'react-router-dom';
 import backarrow from '../Images/backarrow.png'
 import { useLocation } from 'react-router-dom';
@@ -154,66 +154,11 @@ const Listingrequest = () => {
   return (
     <div className='main'>
       <div className='list-head'>
-        <img alt='back-arrow' src={backarrow} onClick={()=>{navigate('/listingrequest')}} />
-        <h1>Listing Request</h1>
-        <div>
-            <select
-        value={selectedOptiona}
-        onChange={(e) => handleSelect(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}>
-        {options.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
-          </option>
-        ))}
-            </select>
-        </div>
-        <div className='seconddrop'>
-          <select
-        value={selectedOptionb}
-        onChange={(e) => handleSelectb(e.target.value)} style={{background:"#BE6B2E",color:"white",borderRadius:"10px",border:"none",width:"100%",padding:"20px",fontSize:"18px"}}
-      >
-        <option value="">Generate Invoice</option>
-        {optionb.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
-          </option>
-        ))}
-            </select>
-        </div>
+        <img alt='back-arrow' src={backarrow} onClick={()=>{navigate('/')}} />
+        <h1>{selectedProduct.purpose}</h1>
       </div>
       <div style={{display:"flex"}}>
         
-        {/* <div style={{marginRight:"3%",width:"20%",textAlign:"center"}}>
-          
-          <img style={{width:"100%"}} src={proimg} alt='userimage'/>
-<div style={{textAlign:"center"}}>
-          <div style={{display:'flex',marginTop:"10%"}}>
-            <div>Name </div>
-            <div style={{paddingLeft:"35px",paddingRight:"10px"}}>:</div>
-            <div>{selectedProduct.contactDetails.fullname}</div>
-          </div>
-          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
-            <div>Address </div>
-            <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
-            <div>{selectedProduct.place}</div>
-          </div>
-          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
-            <div>Pincode </div>
-            <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
-            <div>{selectedProduct.place}</div>
-          </div>
-          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
-            <div>Phone No </div>
-            <div style={{paddingLeft:"5px",paddingRight:"10px"}}>:</div>
-            <div>{selectedProduct.contactDetails.phoneNumber}</div>
-          </div>
-          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
-            <div>Emain </div>
-            <div style={{paddingLeft:"30px",paddingRight:"10px"}}>:</div>
-            <div>{selectedProduct.contactDetails.email}</div>
-          </div>
-          </div>
-        </div> */}
         <div style={{marginRight:"3%",width:"30%",textAlign:"center"}}>
           
           <img style={{width:"80%"}} src={proimg} alt='userimage'/>
@@ -258,10 +203,27 @@ const Listingrequest = () => {
         
 
       <div className='cont3'>
-                    <h1 style={{fontSize:"18px"}}> Documents</h1>
+                    <h1 style={{fontSize:"18px"}}> Property Information</h1>
+                    <p style={{fontSize:"18px"}}> Property Photos</p>
+                    <div style={{display:'flex',width:"100%"}}>
+                        <div style={{marginRight:"3%"}}>
+                            <img style={{width:"180px",height:"120px",marginRight:"10%"}} src="https://property-docs-images.s3.ap-southeast-1.amazonaws.com/d32c47e5-f906-413f-a4fe-36dbbebc54da/Images/House22.jpg"/>
+                        </div>
+                        <div style={{marginRight:"3%"}}>
+                            <img style={{width:"180px",height:"120px"}}  src="https://property-docs-images.s3.ap-southeast-1.amazonaws.com/977305c0-bd24-411b-a094-dbf48716769b/Images/House32.jpg"/>
+                        </div>
+                        <div style={{marginRight:"3%"}}>
+                            <img style={{width:"180px",height:"120px"}}  src="https://property-docs-images.s3.ap-southeast-1.amazonaws.com/977305c0-bd24-411b-a094-dbf48716769b/Images/House31.jpg"/>
+                        </div>
+                    </div>
                     <div className='cont4'>
+                        <p style={{fontSize:"18px"}}>Property Type <span style={{paddingLeft:"100px"}}>:</span> <span style={{paddingLeft:"100px"}}>{selectedProduct.propertyType}</span></p><br/>
+                        <p style={{fontSize:"18px"}}>Property Address <span style={{paddingLeft:"70px"}}>:</span> <span style={{paddingLeft:"100px"}}>{selectedProduct.place}</span></p><br/>
+                        <p style={{fontSize:"18px"}}>Features <span style={{paddingLeft:"140px"}}>:</span> <span style={{paddingLeft:"100px"}}>{selectedProduct.propertyType}</span></p><br/>
+                        <p style={{fontSize:"18px"}}>Postcode <span style={{paddingLeft:"135px"}}>:</span> <span style={{paddingLeft:"100px"}}>{selectedProduct.pinCode}</span></p><br/>
+                        <p style={{fontSize:"18px"}}>Asking Price <span style={{paddingLeft:"110px"}}>:</span> <span style={{paddingLeft:"100px"}}>{selectedProduct.price}</span></p><br/>
                         
-                        <div className='contche' onClick={downloadPropertyTitleDeals}>
+                        {/* <div className='contche' onClick={downloadPropertyTitleDeals}>
                             
                             <div className='doc'>
                                 <p>Property title deals</p>
@@ -316,9 +278,9 @@ const Listingrequest = () => {
                                 <p>Floor Plan</p>
                             </div>
                             
-                        </div>
+                        </div> */}
                         <div className=''>
-                          <h1>
+                          <h1 style={{fontSize:"24px"}}>
                             Property Descrition:
                           </h1>
                           <p className='bpara'>{selectedProduct.propertyDescription}</p>
@@ -330,10 +292,67 @@ const Listingrequest = () => {
                 <div className='bahrooms'><img src={washroom} alt='washroom'/>  {selectedProduct.noOfBathrooms}</div>
                 <div className='toilets'><img src={toilet} alt='toilet'/>  {selectedProduct.noOfToilets}</div>
                 <div className='parking'><img src={parking} alt='parking'/>  {selectedProduct.parkingCapacity}</div>
-              </div>
+              </div><br/>
+              <h1 style={{padding:"25px 0px 15px",fontSize:"24px"}}>Property Docuemnts</h1><br/>
+              <div className='contche' onClick={downloadPropertyTitleDeals}>
+                            
+                            <div className='doc'>
+                                <p>Property title deals</p>
+                            </div>
+                           
+                        </div>
+                        <div className='contche' onClick={downloadFittingAndContentsForm}>
+                            
+                            <div className='doc'>
+                                <p>Fitting and contents form(TA10)</p>
+                            </div>
+                            
+                        </div>
+                        <div className='contche' onClick={downloadEnergyPerformenceCertificate} >
+                            
+                            <div className='doc'>
+                                <p>Energy Performence Certificate(EPC)</p>
+                            </div>
+                            
+                        </div>
+                        <div className='contche'onClick={downloadLeaseholdInformation} >
+                            
+                            <div className='doc'>
+                                <p>Leasehold Information(If applicable)</p>
+                            </div>
+                            
+                        </div>
+                        <div className='contche' onClick={downloadPropertyInfoForm}>
+                            
+                            <div className='doc'>
+                                <p>Property Info Form(TA6)</p>
+                            </div>
+                            
+                        </div>
+                        <div className='contche' onClick={downloadLocalAuthoritySearch} >
+                            
+                            <div className='doc'>
+                                <p>Local Authority Search</p>
+                            </div>
+                            
+                        </div>
+                        <div className='contche' onClick={downloadPropertyValuationReport} >
+                            
+                            <div className='doc'>
+                                <p>Property Valuation Report</p>
+                            </div>
+                            
+                        </div>
+                        <div className='contche'  onClick={downloadFloorplan}>
+                            
+                            <div className='doc'>
+                                <p>Floor Plan</p>
+                            </div>
+                            
+                        </div>
                           
                     </div>
-                          <div style={{display:"flex",}}>
+                          <div style={{display:"flex",marginTop:"40px"}}>
                             <div style={{marginRight:"40px"}}><h3>Any Special condition :</h3></div>
                             <div style={{backgroundColor:"#FFECDE", padding:"10px"}}><p>{selectedProduct.specialConditions} </p></div>
                           </div>
@@ -348,8 +367,52 @@ const Listingrequest = () => {
                             <div style={{backgroundColor:"#FFECDE", padding:"10px"}}><p>{dateOnly}</p></div>
                           </div>
                           
-                          <button onClick={handleApprove} style={{width:"10%",height:"7%",backgroundColor:"#9E5C08",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",border:"none",color:"white",marginRight:"10px"}}>Approve</button>
-                          <button style={{width:"10%",height:"7%",backgroundColor:"white",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",borderColor:"#9E5C08",borderStyle:"solid",color:"#9E5C08",marginRight:"10px"}}>Decline</button>
+                          {/* <button onClick={handleApprove} style={{width:"10%",height:"7%",backgroundColor:"#9E5C08",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",border:"none",color:"white",marginRight:"10px"}}>Approve</button>
+                          <button style={{width:"10%",height:"7%",backgroundColor:"white",borderRadius:"10px",fontSize:"100%",fontWeight:"bold",marginBottom:"20px",borderColor:"#9E5C08",borderStyle:"solid",color:"#9E5C08",marginRight:"10px"}}>Decline</button> */}
+                          <div style={{marginTop:"10%"}}>
+                            <h3>Solicitor's Details</h3>
+                            <div style={{display:"flex"}}>
+                                <div style={{width:"30%"}}>
+                                    <img style={{width:"100%",height:"100%"}} src={proimg} alt='userimage'/>
+                                </div>
+                                <div style={{textAlign:"start",marginLeft:"40px"}}>
+                        <p style={{fontSize:"18px"}}>Name <span style={{paddingLeft:"70px"}}>:</span> <span style={{paddingLeft:""}}>{selectedProduct.contactDetails.fullname}</span></p>
+                        <p style={{fontSize:"18px"}}>Address <span style={{paddingLeft:"50px"}}>:</span> <span style={{paddingLeft:"0px"}}>{selectedProduct.place}</span></p>
+                        <p style={{fontSize:"18px"}}>Features <span style={{paddingLeft:"45px"}}>:</span> <span style={{paddingLeft:"10px"}}>{selectedProduct.propertyType}</span></p>
+                        <p style={{fontSize:"18px"}}>Postcode <span style={{paddingLeft:"40px"}}>:</span> <span style={{paddingLeft:"10px"}}>{selectedProduct.pinCode}</span></p>
+                        <h4>Contact Details</h4>
+                        <p style={{fontSize:"18px"}}>Phone <span style={{paddingLeft:"60px"}}>:</span> <span style={{paddingLeft:"10px"}}>{selectedProduct.contactDetails.phoneNumber}</span></p>
+                        <p style={{fontSize:"18px"}}>Postcode <span style={{paddingLeft:"35px"}}>:</span> <span style={{paddingLeft:"10px"}}>{selectedProduct.contactDetails.email}</span></p>
+                        {/* <p style={{fontSize:"18px"}}>Asking Price <span style={{paddingLeft:"0px"}}>:</span> <span style={{paddingLeft:"10px"}}>{selectedProduct.price}</span></p><br/> */}
+          {/* <div style={{display:'flex',marginTop:"10%"}}>
+            <div>Name </div>
+            <div style={{paddingLeft:"35px",paddingRight:"10px"}}>:</div>
+            <div>{selectedProduct.contactDetails.fullname}</div>
+          </div>
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Address </div>
+            <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
+            <div>{selectedProduct.place}</div>
+          </div>
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Pincode </div>
+            <div style={{paddingLeft:"20px",paddingRight:"10px"}}>:</div>
+            <div>{selectedProduct.place}</div>
+          </div>
+          
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Phone No </div>
+            <div style={{paddingLeft:"5px",paddingRight:"10px"}}>:</div>
+            <div>{selectedProduct.contactDetails.phoneNumber}</div>
+          </div>
+          <div style={{display:'flex',flexDirection:"row",justifyContent:""}}>
+            <div>Emain </div>
+            <div style={{paddingLeft:"30px",paddingRight:"10px"}}>:</div>
+            <div>{selectedProduct.contactDetails.email}</div>
+          </div> */}
+                    </div>
+                            </div>
+                          </div>
                     </div>                    
       </div>
     </div>

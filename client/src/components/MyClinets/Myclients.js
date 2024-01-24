@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./myclients.css";
 import logo from "./arrow.jpg";
 import { clients } from "../MyClinets/Data";
@@ -9,7 +9,13 @@ import Select from "@mui/material/Select";
 import { Box, Card, Table } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+
 const Myclients = () => {
+  const [selectedProduct, setSelectedProduct] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("To-Let");
+  const [listingData, setListingData] = useState([]);
 
   const navigate=useNavigate()
     const [age, setAge] = React.useState("");
@@ -17,6 +23,34 @@ const Myclients = () => {
     const handleChange = (event) => {
         setAge(event.target.value);
       };
+      const handleProduct = (item) => {
+        setSelectedProduct(item);
+        navigate('/viewmore', { state: { selectedProduct: item } });
+      };
+
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('https://raddaf-be.onrender.com/listing-property/get-listings');
+            const { data } = response;
+    
+            let filteredListings = [];
+            if (selectedOption === "For Sale") {
+              filteredListings = data.filter(item => item.purpose === 'Sale');
+            } else if (selectedOption === "To-Let") {
+              filteredListings = data.filter(item => item.purpose === 'Tolet');
+            }
+    
+            setListingData(filteredListings);
+            console.log(filteredListings)
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, [selectedOption]);
+
   return (
     <div className="main-div-clients">
       <div className="first-div-clients">
@@ -65,7 +99,7 @@ const Myclients = () => {
         </div>
       </div>
       <div className="second-div-clients">
-        {clients.map((client, index) => (
+        {listingData.map((data, index) => (
           <Card key={index} sx={{ background: "#FFD2B1" }} className="card-div">
             <Table className="table-div">
               <thead>
@@ -81,14 +115,14 @@ const Myclients = () => {
               <tbody>
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{client.name}</td>
+                  <td>{data.contactDetails.fullname}</td>
                   <td>
-                    Phone: {client.contactdetails.phone}, <br />Mail:{" "}
-                    {client.contactdetails.Mail}
+                    Phone: {data.contactDetails.phoneNumber}, <br />Mail:{" "}
+                    {data.contactDetails.email}
                   </td>
-                  <td>{client.propertyaddress}</td>
-                  <td>{client.ID}</td>
-                  <td > <ArrowForwardIcon sx={{color:"#955108",background:"#FFD2B1"}}/></td>
+                  <td>{data.place}</td>
+                  <td>{data.ID}</td>
+                  <td > <ArrowForwardIcon onClick={() => handleProduct(data)} sx={{color:"#955108",background:"#FFD2B1"}}/></td>
                 </tr>
               </tbody>
             </Table>

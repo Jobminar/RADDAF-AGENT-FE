@@ -91,7 +91,7 @@ const Myzone = () => {
                   </td>
                   <td>{client.propertyaddress}</td>
                   <td>{client.ID}</td>
-                  <td ><ArrowForwardIcon sx={{color:"#955108",background:"#FFD2B1"}}/></td>
+                  <td ><ArrowForwardIcon onClick={()=>{navigate('/underconstruction')}} sx={{color:"#955108",background:"#FFD2B1"}}/></td>
                 </tr>
               </tbody>
             </Table>

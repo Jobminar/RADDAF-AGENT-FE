@@ -17,6 +17,9 @@ import Mytenats from "./components/MyTenants/Mytenats.js";
 import Mylandlords from "./components/MyLandLords/Mylandlords.js";
 import Valuationrequest from "./components/Valuationrequest/Valuationrequest.js"
 import ChatComponent from "./Sample.js";
+import Pageunderconstruction from "./components/Under/Pageunder.js"
+import Viewmore from "./components/MyClinets/Viewmore.js"
+import Agreements from "./components/Agreements/Agreements.js"
 
 
 
@@ -41,7 +44,9 @@ function Routing() {
             <Route path="/mytenats" element={<Header><Mytenats /></Header>} />
             <Route path="/mylandlords" element={<Header><Mylandlords /></Header>}/>
             <Route path="/sample" element={<Header><ChatComponent /></Header>}/>
-           
+            <Route path="/underconstruction" element={<Header><Pageunderconstruction /></Header>}/>
+            <Route path="/viewmore" element={<Header><Viewmore /></Header>}/>
+            <Route path="/agreements" element={<Header><Viewmore /></Header>}/>
           </Routes>
         </BrowserRouter>
    </>

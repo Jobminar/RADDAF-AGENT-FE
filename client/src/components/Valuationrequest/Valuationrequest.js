@@ -183,22 +183,22 @@ const Valuationrequest = () => {
                 </div>
               </div> */}
               <table>
-                            <thead style={{marginBottom:"px"}}>
-                                <tr style={{borderBottom:"0.1%",borderColor:"#955108",borderStyle:"groove",borderTop:"none",borderLeft:"none",borderRight:"none"}}>
-                                    <th>Name</th>
-                                    <th>Address</th>
-                                    <th>Pin code</th>
-                                    <th>Property</th>
+                            <thead style={{marginBottom:"px",textAlign:"center"}}>
+                                <tr style={{borderBottom:"0.1%",textAlign:"center",borderColor:"#955108",borderStyle:"groove",borderTop:"none",borderLeft:"none",borderRight:"none"}}>
+                                    <th style={{textAlign:"center"}}>Name</th>
+                                    <th style={{textAlign:"center"}}>Address</th>
+                                    <th style={{textAlign:"center"}}>Pin code</th>
+                                    <th style={{textAlign:"center"}}>Property</th>
                                     {/* <th></th> */}
                                 </tr>
                             
                             </thead>
-                            <tbody>
-                                <tr class="hove">
-                                    <td>{data.username}</td>
-                                    <td>{data.address}</td>
-                                    <td>{data.postCode}</td>
-                                    <td>{data.propertyAction}</td>
+                            <tbody style={{textAlign:"center"}}>
+                                <tr class="hove" style={{textAlign:"center"}}>
+                                    <td style={{textAlign:"center"}}>{data.firstName}</td>
+                                    <td style={{textAlign:"center"}}>{data.address}</td>
+                                    <td style={{textAlign:"center"}}>{data.postCode}</td>
+                                    <td style={{textAlign:"center"}}>{data.propertyAction}</td>
                                     {/* <td> */}
                                         {/* <div style={{textAlign:"center"}} className='nn'>
                                             <svg xmlns="http://www.w3.org/2000/svg" onClick={() => handleProduct(data)} width="40" style={{paddingRight:"60px"}} height="40" fill="#955108" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">

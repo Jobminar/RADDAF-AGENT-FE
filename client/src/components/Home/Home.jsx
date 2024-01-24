@@ -113,7 +113,7 @@ const Homeagent = () => {
               <div
                 className="my-sub-links-content"
                 onClick={() => {
-                  navigate("/myappointment");
+                  navigate("/underconstruction");
                 }}
               >
                 <h1>My Appointments</h1>
@@ -191,7 +191,7 @@ const Homeagent = () => {
               <div
                 className="my-sub-links-content"
                 onClick={() => {
-                  navigate("/potentialclients");
+                  navigate("/underconstruction");
                 }}
               >
                 <h1>My Potential clients</h1>
@@ -249,7 +249,7 @@ const Homeagent = () => {
               <div
                 className="my-sub-links-content"
                 onClick={() => {
-                  navigate("/generatebilling");
+                  navigate("/underconstruction");
                 }}
               >
                 <h1>Generate Billing</h1>
@@ -302,7 +302,7 @@ const Homeagent = () => {
               <div
                 className="my-sub-links-content"
                 onClick={() => {
-                  navigate("/agreements");
+                  navigate("/underconstruction");
                 }}
               >
                 <h1>My Agreements</h1>
