@@ -8,7 +8,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Box, Card, Table } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from "react-router-dom";
 const Myzone = () => {
+
+  const navigate=useNavigate()
     const [age, setAge] = React.useState("");
 
     const handleChange = (event) => {
@@ -19,7 +22,7 @@ const Myzone = () => {
       <div className="first-div-zone">
         <div className="arrow-div1">
           <div>
-            <img src={logo1} alt="logo" />
+            <img src={logo1} alt="logo" onClick={()=>navigate("/")}/>
           </div>
           <Box sx={{ color: "#955108" }}>My Zone</Box>
 
@@ -75,7 +78,7 @@ const Myzone = () => {
                   <th>Contact Details</th>
                   <th>Property Address</th>
                   <th>ID</th>
-                  <th>View Documents</th>
+                  <th>View More</th>
                 </tr>
               </thead>
               <tbody>

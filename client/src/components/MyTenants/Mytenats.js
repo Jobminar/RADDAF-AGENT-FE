@@ -4,7 +4,9 @@ import logo2 from '../MyTenants/arrow.jpg'
 import { clients } from '../MyTenants/Data'
 import { Box, Card, Table } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from "react-router-dom";
 const Mytenats = () => {
+  const navigate=useNavigate()
     const [age, setAge] = React.useState("");
 
     const handleChange = (event) => {
@@ -15,7 +17,7 @@ const Mytenats = () => {
       <div className="first-div-tenats">
         <div className="arrow-div2">
           <div>
-            <img src={logo2} alt="logo" />
+            <img src={logo2} alt="logo" onClick={()=>navigate("/")} />
           </div>
           <h2 style={{ color: "#955108" }}>My tenats</h2>
        
@@ -33,7 +35,7 @@ const Mytenats = () => {
                   <th>Contact Details</th>
                   <th>Property Address</th>
                   <th>ID</th>
-                  <th>View Documents</th>
+                  <th>View More</th>
                 </tr>
               </thead>
               <tbody>
